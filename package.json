@@ -1,0 +1,24 @@
+{
+  "name": "announce-frontend",
+  "version": "0.1.0",
+  "description": "Frontend web interface for the SA:MP alternative masterlist backed by announce-backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Southclaws/announce-frontend.git"
+  },
+  "keywords": [
+    "react",
+    "frontend",
+    "restful"
+  ],
+  "author": "Barnaby \"Southclaws\" Keene",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Southclaws/announce-frontend/issues"
+  },
+  "homepage": "https://github.com/Southclaws/announce-frontend#readme"
+}
