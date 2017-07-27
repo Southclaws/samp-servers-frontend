@@ -1,15 +1,28 @@
 import * as React from "react";
 import { Component } from "react";
-import Server from "./server"
+import CServer from "./server"
 
-export class ServerList extends Component {
-    render() {
-        return (
-            // A list of servers from the /servers endpoint
-            // when clicked, open a details pane
-            <ul></ul>
-        )
-    }
+interface ServerListProps {
+    servers: Array<CServer>
 }
 
-export default ServerList
+interface ServerListState {
+    selected: string
+}
+
+export default class ServerList extends Component<ServerListProps, ServerListState> {
+    constructor(props: ServerListProps) {
+        super(props)
+        this.state = {
+            selected: "" // nothing selected on init
+        }
+    }
+
+    render() {
+        let rows: Array<{}> = []
+        this.props.servers.forEach(element => {
+            rows.push(<li>{element}</li>)
+        });
+        return <ul>{rows}</ul>
+    }
+}
