@@ -1,49 +1,26 @@
 import * as React from "react";
 import { Component } from "react";
 
-export class CServerCore {
+export type ServerCore = {
     ip: string
     hn: string
     pc: number
-    mp: number
+    pm: number
     gm: string
     la: string
     pa: boolean
 }
 
-export class CServer {
-    core: CServerCore
+export type ServerFull = {
+    core: ServerCore
     ru: {}
     pl: number
     description: string
     banner: string
-
-    constructor(ip: string,
-        hn: string,
-        pc: number,
-        mp: number,
-        gm: string,
-        la: string,
-        pa: boolean,
-        ru: {},
-        pl: number,
-        description: string,
-        banner: string) {
-        this.core.hn = hn
-        this.core.pc = pc
-        this.core.mp = mp
-        this.core.gm = gm
-        this.core.la = la
-        this.core.pa = pa
-        this.ru = ru
-        this.pl = pl
-        this.description = description
-        this.banner = banner
-    }
 }
 
 interface IServerProps {
-    server: CServer
+    server: ServerFull
 }
 
 interface IServerState {
