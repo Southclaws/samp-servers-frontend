@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Component } from "react";
-import CServer from "./server"
+import ServerCore from "./server"
 
 interface ServerListProps {
-    servers: Array<CServer>
+    servers: ServerCore[]
 }
 
 interface ServerListState {
@@ -19,10 +19,9 @@ export default class ServerList extends Component<ServerListProps, ServerListSta
     }
 
     render() {
-        let rows: Array<{}> = []
+        let rows: ServerCore[]
         this.props.servers.forEach(element => {
-            rows.push(<li>{element}</li>)
         });
-        return <ul>{rows}</ul>
+        return <ul></ul>
     }
 }

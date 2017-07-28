@@ -23,24 +23,12 @@ interface IServerProps {
     server: ServerFull
 }
 
-interface IServerState {
-
-}
+interface IServerState { }
 
 export default class Server extends Component<IServerProps, IServerState> {
-    onClick(e: Event) {
-        e.preventDefault();
-        // set the selected server to this
-        // update details view to GET /server/{this.core.address}
-    }
     render() {
-        // const active = server === activeServer ? 'active' : '';
         return (
-            <li /*className={active}*/>
-                <a onClick={this.onClick.bind(this)}>
-                    Server
-                </a>
-            </li>
+            <li></li>
         )
     }
 }
