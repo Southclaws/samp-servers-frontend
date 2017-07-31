@@ -1,7 +1,33 @@
 import * as React from "react";
 import { Component } from "react";
 
-export type ServerCore = {
+interface IServerProps {
+    server: ServerCore
+}
+
+interface IServerState { }
+
+export default class ServerListRow extends Component<IServerProps, IServerState> {
+    selectServer(e: Event) {
+        // open the details thingy
+    }
+
+    render() {
+        return (
+            <tr onClick={this.selectServer.bind(this)}>
+                <td>{this.props.server.ip}</td>
+                <td>{this.props.server.hn}</td>
+                <td>{this.props.server.pc}</td>
+                <td>{this.props.server.pm}</td>
+                <td>{this.props.server.gm}</td>
+                <td>{this.props.server.la}</td>
+                <td>{this.props.server.pa}</td>
+            </tr>
+        )
+    }
+}
+
+export interface ServerCore {
     ip: string
     hn: string
     pc: number
@@ -11,7 +37,7 @@ export type ServerCore = {
     pa: boolean
 }
 
-export type ServerFull = {
+export interface ServerFull {
     core: ServerCore
     ru: {}
     pl: number
@@ -19,16 +45,16 @@ export type ServerFull = {
     banner: string
 }
 
-interface IServerProps {
-    server: ServerFull
-}
-
-interface IServerState { }
-
-export default class Server extends Component<IServerProps, IServerState> {
-    render() {
-        return (
-            <li></li>
-        )
+export function decodeServerCore(obj: any): ServerCore {
+    let ret: ServerCore = {
+        ip: obj.ip,
+        hn: obj.hn,
+        pc: obj.pc,
+        pm: obj.pm,
+        gm: obj.gm,
+        la: obj.la,
+        pa: obj.pa,
     }
+
+    return ret
 }
