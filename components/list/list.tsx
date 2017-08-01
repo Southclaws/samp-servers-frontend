@@ -31,7 +31,6 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                         <Table.HeaderCell>Players</Table.HeaderCell>
                         <Table.HeaderCell>Gamemode</Table.HeaderCell>
                         <Table.HeaderCell>Language</Table.HeaderCell>
-                        <Table.HeaderCell>Password</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>{

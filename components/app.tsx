@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Component } from "react";
+import { Container, Grid } from 'semantic-ui-react';
 
 import { ServerFull, ServerCore, decodeServerCore } from "./list/server"
 import ServerList from "./list/list"
@@ -38,9 +39,14 @@ export default class App extends Component<AppProps, AppState> {
         if (this.state.servers === null) {
             return (<div></div>)
         }
-        return (<div>
-            <ServerList servers={this.state.servers} />
-            <ServerDetails />
-        </div>)
+        return (<Grid>
+            <Grid.Column width={12}>
+                <Container><ServerList servers={this.state.servers} /></Container>
+            </Grid.Column>
+
+            <Grid.Column width={4}>
+                <Container> <ServerDetails /></Container>
+            </Grid.Column>
+        </Grid>)
     }
 }
