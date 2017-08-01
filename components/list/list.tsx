@@ -26,13 +26,12 @@ export default class ServerList extends Component<IServerListProps, IServerListS
             <Table celled inverted selectable>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>ip</Table.HeaderCell>
-                        <Table.HeaderCell>hn</Table.HeaderCell>
-                        <Table.HeaderCell>pc</Table.HeaderCell>
-                        <Table.HeaderCell>pm</Table.HeaderCell>
-                        <Table.HeaderCell>gm</Table.HeaderCell>
-                        <Table.HeaderCell>la</Table.HeaderCell>
-                        <Table.HeaderCell>pa</Table.HeaderCell>
+                        <Table.HeaderCell>Address</Table.HeaderCell>
+                        <Table.HeaderCell>Hostname</Table.HeaderCell>
+                        <Table.HeaderCell>Players</Table.HeaderCell>
+                        <Table.HeaderCell>Gamemode</Table.HeaderCell>
+                        <Table.HeaderCell>Language</Table.HeaderCell>
+                        <Table.HeaderCell>Password</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>{

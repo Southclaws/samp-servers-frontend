@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Component } from "react";
 import { Table } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 
 interface IServerProps {
@@ -15,15 +16,17 @@ export default class ServerListRow extends Component<IServerProps, IServerState>
     }
 
     render() {
+        let passwordIcon = this.props.server.pa ? <Icon name='lock' /> : <Icon name='unlock' />
+
         return (
             <Table.Row onClick={this.selectServer.bind(this)}>
-                <Table.Cell>{this.props.server.ip}</Table.Cell>
+                <Table.Cell>
+                    {passwordIcon}
+                    {this.props.server.ip}</Table.Cell>
                 <Table.Cell>{this.props.server.hn}</Table.Cell>
-                <Table.Cell>{this.props.server.pc}</Table.Cell>
-                <Table.Cell>{this.props.server.pm}</Table.Cell>
+                <Table.Cell>{this.props.server.pc}/{this.props.server.pm}</Table.Cell>
                 <Table.Cell>{this.props.server.gm}</Table.Cell>
                 <Table.Cell>{this.props.server.la}</Table.Cell>
-                <Table.Cell>{this.props.server.pa}</Table.Cell>
             </Table.Row>
         )
     }
