@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Component } from "react";
+import { Table } from 'semantic-ui-react';
+
 
 interface IServerProps {
     server: ServerCore
@@ -14,15 +16,15 @@ export default class ServerListRow extends Component<IServerProps, IServerState>
 
     render() {
         return (
-            <tr onClick={this.selectServer.bind(this)}>
-                <td>{this.props.server.ip}</td>
-                <td>{this.props.server.hn}</td>
-                <td>{this.props.server.pc}</td>
-                <td>{this.props.server.pm}</td>
-                <td>{this.props.server.gm}</td>
-                <td>{this.props.server.la}</td>
-                <td>{this.props.server.pa}</td>
-            </tr>
+            <Table.Row onClick={this.selectServer.bind(this)}>
+                <Table.Cell>{this.props.server.ip}</Table.Cell>
+                <Table.Cell>{this.props.server.hn}</Table.Cell>
+                <Table.Cell>{this.props.server.pc}</Table.Cell>
+                <Table.Cell>{this.props.server.pm}</Table.Cell>
+                <Table.Cell>{this.props.server.gm}</Table.Cell>
+                <Table.Cell>{this.props.server.la}</Table.Cell>
+                <Table.Cell>{this.props.server.pa}</Table.Cell>
+            </Table.Row>
         )
     }
 }
