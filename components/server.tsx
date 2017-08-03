@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component } from "react";
-import { Table, Icon, Modal } from 'semantic-ui-react';
+import { Table, Icon, Modal, Grid, List, Image } from 'semantic-ui-react';
 
 
 interface IServerProps {
@@ -21,7 +21,7 @@ export default class ServerListRow extends Component<IServerProps, IServerState>
     }
 
     render() {
-        let passwordIcon = this.props.server.pa ? <Icon name='lock' /> : <Icon name='unlock' />
+        let passwordIcon = this.props.server.pa ? <Icon name='lock' /> : <Icon name='unlock' disabled />
 
         return (
             <Modal
@@ -37,12 +37,84 @@ export default class ServerListRow extends Component<IServerProps, IServerState>
                     </Table.Row>
                 }
                 onMount={this.selectServer.bind(this)}>
-                <Modal.Header>{this.props.server.hn}</Modal.Header>
+                <Modal.Header>{this.props.server.hn}  {passwordIcon}</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        <p>{
-                            JSON.stringify(this.state === null ? "No data" : this.state.full)
-                        }</p>
+                        <Grid divided='vertically'>
+                            <Grid.Row columns={2}>
+                                <Grid.Column>
+                                    <List>
+                                        <List.Item>
+                                            <Icon name='sitemap' />
+                                            <List.Content>
+                                                <List.Header>Address</List.Header>
+                                                <List.Description>{this.props.server.ip}</List.Description>
+                                            </List.Content>
+                                        </List.Item>
+                                        <List.Item>
+                                            <Icon name='signal' />
+                                            <List.Content>
+                                                <List.Header>Players</List.Header>
+                                                <List.Description>{this.props.server.pc}/{this.props.server.pm}</List.Description>
+                                            </List.Content>
+                                        </List.Item>
+                                        <List.Item>
+                                            <Icon name='game' />
+                                            <List.Content>
+                                                <List.Header>Gamemode</List.Header>
+                                                <List.Description>{this.props.server.gm}</List.Description>
+                                            </List.Content>
+                                        </List.Item>
+                                        <List.Item>
+                                            <Icon name='world' />
+                                            <List.Content>
+                                                <List.Header>Language</List.Header>
+                                                <List.Description>{this.props.server.la}</List.Description>
+                                            </List.Content>
+                                        </List.Item>
+                                    </List>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    {this.state === null ? "" : (
+                                        <List>
+                                            <List.Item>
+                                                <Icon name='sitemap' />
+                                                <List.Content>
+                                                    <List.Header>Description</List.Header>
+                                                    <List.Description>{this.state.full.description ? this.state.full.description : "(no description given)"}</List.Description>
+                                                </List.Content>
+                                            </List.Item>
+                                            <List.Item>
+                                                <Icon name='options' />
+                                                <List.Content>
+                                                    <List.Header>Rules</List.Header>
+                                                    <List.Description>{this.state.full.ru ? (
+                                                        <Table size='small' basic='very' celled compact collapsing><Table.Body>{
+                                                            (Object.keys(this.state.full.ru).map((v: string, i: number) => {
+                                                                console.log(v)
+                                                                return (
+                                                                    <Table.Row key={i}>
+                                                                        <Table.Cell>{v}</Table.Cell>
+                                                                        <Table.Cell>{this.state.full.ru[v]}</Table.Cell>
+                                                                    </Table.Row>
+                                                                )
+                                                            }))
+                                                        }</Table.Body></Table>
+                                                    ) : "(no rules set)"}</List.Description>
+                                                </List.Content>
+                                            </List.Item>
+                                        </List>
+                                    )}
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column>
+                                    {this.state === null ? "" : (
+                                        <Image src="http://i.imgur.com/fqg4kL4.gif" fluid centered />
+                                    )}
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
                     </Modal.Description>
                 </Modal.Content>
             </Modal>
@@ -62,10 +134,14 @@ export interface ServerCore {
 
 export interface ServerFull {
     core: ServerCore
-    ru: {}
+    ru: ServerRules
     pl: number
     description: string
     banner: string
+}
+
+export interface ServerRules {
+    [key: string]: string
 }
 
 export function decodeServerCore(obj: any): ServerCore {
