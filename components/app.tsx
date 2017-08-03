@@ -1,10 +1,9 @@
 import * as React from "react";
 import { Component } from "react";
-import { Container, Grid } from 'semantic-ui-react';
+import { Container, Grid, Header, Divider } from 'semantic-ui-react';
 
-import { ServerFull, ServerCore, decodeServerCore } from "./list/server"
-import ServerList from "./list/list"
-import ServerDetails from "./details/details"
+import { ServerFull, ServerCore, decodeServerCore } from "./server"
+import ServerList from "./list"
 
 interface AppProps { }
 interface AppState {
@@ -40,13 +39,22 @@ export default class App extends Component<AppProps, AppState> {
             return (<div></div>)
         }
         return (<Grid>
-            <Grid.Column width={12}>
-                <Container><ServerList servers={this.state.servers} /></Container>
-            </Grid.Column>
-
-            <Grid.Column width={4}>
-                <Container> <ServerDetails /></Container>
-            </Grid.Column>
+            <Grid.Row>
+                <Container>
+                    <Header as='h1' attached='top' inverted>
+                        SA:MP Servers
+                        <Header.Subheader>
+                            by southclaws
+                        </Header.Subheader>
+                    </Header>
+                    <Divider inverted />
+                </Container>
+            </Grid.Row>
+            <Grid.Row>
+                <Container>
+                    <ServerList servers={this.state.servers} />
+                </Container>
+            </Grid.Row>
         </Grid>)
     }
 }

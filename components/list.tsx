@@ -25,7 +25,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
         return (
             <Table celled inverted selectable>
                 <Table.Header>
-                    <Table.Row>
+                    <Table.Row disabled={true}>
                         <Table.HeaderCell>Address</Table.HeaderCell>
                         <Table.HeaderCell>Hostname</Table.HeaderCell>
                         <Table.HeaderCell>Players</Table.HeaderCell>
