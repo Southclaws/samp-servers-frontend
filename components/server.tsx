@@ -110,7 +110,7 @@ export default class ServerListRow extends Component<IServerProps, IServerState>
                             <Grid.Row>
                                 <Grid.Column>
                                     {this.state === null ? "" : (
-                                        <Image src="http://i.imgur.com/fqg4kL4.gif" fluid centered />
+                                        <Image src={this.state.full.banner} fluid centered />
                                     )}
                                 </Grid.Column>
                             </Grid.Row>
