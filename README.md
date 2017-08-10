@@ -4,7 +4,7 @@ Frontend for the SA:MP alternative masterlist - backend API: https://github.com/
 
 Very early in development! Also my *first* ReactJS project so feel free to criticise and point out mistakes and bad practice :)
 
-When it's online, it'll be at https://samp.southcla.ws
+When it's online, it'll be at http://samp.southcla.ws
 
 ## Screenshots
 
