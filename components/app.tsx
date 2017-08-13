@@ -1,3 +1,4 @@
+import * as URL from 'url'
 import * as React from "react";
 import { SyntheticEvent, Component } from "react";
 import { Container, Grid, Header, Input, Button, Popup, Icon, Divider } from 'semantic-ui-react';
@@ -14,7 +15,6 @@ interface AppState {
     searchQuery: string
     addAddress: string
     addSuccess: boolean
-    addFailure: boolean
 }
 
 export default class App extends Component<AppProps, AppState> {
@@ -28,7 +28,6 @@ export default class App extends Component<AppProps, AppState> {
             searchQuery: "",
             addAddress: "",
             addSuccess: false,
-            addFailure: false
         };
     }
     componentDidMount() {
@@ -81,10 +80,12 @@ export default class App extends Component<AppProps, AppState> {
             body: this.state.addAddress
         }).then((res) => {
             if (res.status == 200) {
-                this.setState({ adding: false })
-                this.setState({ addSuccess: true })
-            } else {
-                this.setState({ addFailure: true })
+                this.setState({
+                    adding: false,
+                    addSuccess: true,
+                    addAddress: ""
+                })
+                setTimeout(() => { this.setState({ addSuccess: false }) }, 2500)
             }
         })
     }
@@ -135,17 +136,18 @@ export default class App extends Component<AppProps, AppState> {
                     </Grid.Column>
                     <Grid.Column >
                         <Input
+                            value={this.state.addAddress}
                             inverted
                             fluid
                             iconPosition='left'
-                            loading={false}
+                            loading={this.state.adding}
                             icon='sitemap'
                             placeholder='Paste a server address'
                             onChange={(e: any) => this.doAdd(e.target.value)}
                             action={
                                 <Popup
                                     content='Added! The server may take a minute or two to appear on the list.'
-                                    open={this.state.addSuccess || this.state.addFailure}
+                                    open={this.state.addSuccess}
                                     hideOnScroll
                                     trigger={<Button onClick={this.doAddServer.bind(this)} animated='vertical' loading={this.state.adding}>
                                         <Button.Content visible>Add</Button.Content>
