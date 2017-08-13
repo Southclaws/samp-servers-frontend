@@ -34,18 +34,33 @@ export default class App extends Component<AppProps, AppState> {
         this.getServers()
     }
 
-    getServers() {
-        fetch("http://api.samp.southcla.ws/v1/servers").then((res) => res.json()).then((data) => {
-            let servers: ServerCore[] = []
-            data.forEach((server: ServerCore) => {
-                servers.push(server)
-            });
-            this.setState({
-                servers: servers,
-                refreshing: false,
-                searching: false
-            })
-        }).catch((err) => console.log('failed to get servers', err))
+    async getServers() {
+        let response: Response
+        try {
+            response = await fetch("http://api.samp.southcla.ws/v1/servers")
+        } catch (error) {
+            console.log("failed to GET server list:", error)
+            return
+        }
+
+        let data: Array<Object>
+        try {
+            data = await response.json()
+        } catch (error) {
+            console.log("failed to parse response as JSON:", error)
+            return
+        }
+
+        let servers: ServerCore[] = []
+        data.forEach((server: ServerCore) => {
+            servers.push(server)
+        });
+
+        this.setState({
+            servers: servers,
+            refreshing: false,
+            searching: false
+        })
     }
 
     doFilter(query: string) {
@@ -65,29 +80,39 @@ export default class App extends Component<AppProps, AppState> {
         this.getServers()
     }
 
-    doAddServer(event: SyntheticEvent<any>, data: object) {
+    async doAddServer(event: SyntheticEvent<any>, data: object) {
         if (this.state.addAddress.length < 3) {
             return
         }
 
         this.setState({ adding: true })
-        fetch('http://api.samp.southcla.ws/v1/server', {
-            method: 'POST',
-            headers: {
-                'Accept': 'text/plain',
-                'Content-Type': 'text/plain',
-            },
-            body: this.state.addAddress
-        }).then((res) => {
-            if (res.status == 200) {
-                this.setState({
-                    adding: false,
-                    addSuccess: true,
-                    addAddress: ""
-                })
-                setTimeout(() => { this.setState({ addSuccess: false }) }, 2500)
-            }
+
+        let response: Response
+        try {
+            response = await fetch('http://api.samp.southcla.ws/v1/server', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'text/plain',
+                    'Content-Type': 'text/plain',
+                },
+                body: this.state.addAddress
+            })
+        } catch (error) {
+            console.log("failed to POST server:", error)
+            return
+        }
+
+        if (response.status != 200) {
+            console.log("server POST response not OK:", response.status)
+            return
+        }
+
+        this.setState({
+            adding: false,
+            addSuccess: true,
+            addAddress: ""
         })
+        setTimeout(() => { this.setState({ addSuccess: false }) }, 2500)
     }
 
     render() {
