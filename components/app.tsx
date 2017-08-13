@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SyntheticEvent, Component } from "react";
-import { Container, Grid, Header, Input, Button, Icon, Divider } from 'semantic-ui-react';
+import { Container, Grid, Header, Input, Button, Popup, Icon, Divider } from 'semantic-ui-react';
 
 import { ServerFull, ServerCore, decodeServerCore } from "./server"
 import ServerList from "./list"
@@ -13,6 +13,8 @@ interface AppState {
     adding: boolean
     searchQuery: string
     addAddress: string
+    addSuccess: boolean
+    addFailure: boolean
 }
 
 export default class App extends Component<AppProps, AppState> {
@@ -24,7 +26,9 @@ export default class App extends Component<AppProps, AppState> {
             refreshing: false,
             adding: false,
             searchQuery: "",
-            addAddress: ""
+            addAddress: "",
+            addSuccess: false,
+            addFailure: false
         };
     }
     componentDidMount() {
@@ -39,7 +43,8 @@ export default class App extends Component<AppProps, AppState> {
             });
             this.setState({
                 servers: servers,
-                refreshing: false
+                refreshing: false,
+                searching: false
             })
         }).catch((err) => console.log('failed to get servers', err))
     }
@@ -47,9 +52,13 @@ export default class App extends Component<AppProps, AppState> {
     doFilter(query: string) {
         this.setState({ searchQuery: query })
     }
+    doAdd(address: string) {
+        this.setState({ addAddress: address })
+    }
 
     doSearch(event: SyntheticEvent<any>, data: object) {
         this.setState({ searching: true })
+        this.getServers() // temp until v2 API is implemented
     }
 
     doRefresh(event: SyntheticEvent<any>, data: object) {
@@ -58,8 +67,26 @@ export default class App extends Component<AppProps, AppState> {
     }
 
     doAddServer(event: SyntheticEvent<any>, data: object) {
+        if (this.state.addAddress.length < 3) {
+            return
+        }
+
         this.setState({ adding: true })
-        console.log(data)
+        fetch('http://api.samp.southcla.ws/v1/server', {
+            method: 'POST',
+            headers: {
+                'Accept': 'text/plain',
+                'Content-Type': 'text/plain',
+            },
+            body: this.state.addAddress
+        }).then((res) => {
+            if (res.status == 200) {
+                this.setState({ adding: false })
+                this.setState({ addSuccess: true })
+            } else {
+                this.setState({ addFailure: true })
+            }
+        })
     }
 
     render() {
@@ -114,13 +141,19 @@ export default class App extends Component<AppProps, AppState> {
                             loading={false}
                             icon='sitemap'
                             placeholder='Paste a server address'
+                            onChange={(e: any) => this.doAdd(e.target.value)}
                             action={
-                                <Button onClick={this.doAddServer.bind(this)} animated='vertical' loading={this.state.adding}>
-                                    <Button.Content visible>Add</Button.Content>
-                                    <Button.Content hidden >
-                                        <Icon name='plus' />
-                                    </Button.Content>
-                                </Button>
+                                <Popup
+                                    content='Added! The server may take a minute or two to appear on the list.'
+                                    open={this.state.addSuccess || this.state.addFailure}
+                                    hideOnScroll
+                                    trigger={<Button onClick={this.doAddServer.bind(this)} animated='vertical' loading={this.state.adding}>
+                                        <Button.Content visible>Add</Button.Content>
+                                        <Button.Content hidden >
+                                            <Icon name='plus' />
+                                        </Button.Content>
+                                    </Button>}
+                                />
                             }
                         />
                     </Grid.Column>
@@ -129,7 +162,7 @@ export default class App extends Component<AppProps, AppState> {
                     <ServerList servers={this.state.servers} filter={this.state.searchQuery} />
                 </Grid.Row>
             </Grid>
-        </Container>
+        </Container >
         )
     }
 }

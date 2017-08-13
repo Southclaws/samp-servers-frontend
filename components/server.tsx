@@ -91,7 +91,6 @@ export default class ServerListRow extends Component<IServerProps, IServerState>
                                                     <List.Description>{this.state.full.ru ? (
                                                         <Table size='small' basic='very' celled compact collapsing><Table.Body>{
                                                             (Object.keys(this.state.full.ru).map((v: string, i: number) => {
-                                                                console.log(v)
                                                                 return (
                                                                     <Table.Row key={i}>
                                                                         <Table.Cell>{v}</Table.Cell>
