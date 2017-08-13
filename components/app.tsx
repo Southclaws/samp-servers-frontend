@@ -11,6 +11,8 @@ interface AppState {
     searching: boolean
     refreshing: boolean
     adding: boolean
+    searchQuery: string
+    addAddress: string
 }
 
 export default class App extends Component<AppProps, AppState> {
@@ -20,7 +22,9 @@ export default class App extends Component<AppProps, AppState> {
             servers: [],
             searching: false,
             refreshing: false,
-            adding: false
+            adding: false,
+            searchQuery: "",
+            addAddress: ""
         };
     }
     componentDidMount() {
@@ -40,9 +44,12 @@ export default class App extends Component<AppProps, AppState> {
         }).catch((err) => console.log('failed to get servers', err))
     }
 
+    doFilter(query: string) {
+        this.setState({ searchQuery: query })
+    }
+
     doSearch(event: SyntheticEvent<any>, data: object) {
         this.setState({ searching: true })
-        console.log(event, data)
     }
 
     doRefresh(event: SyntheticEvent<any>, data: object) {
@@ -52,7 +59,7 @@ export default class App extends Component<AppProps, AppState> {
 
     doAddServer(event: SyntheticEvent<any>, data: object) {
         this.setState({ adding: true })
-        console.log(event, data)
+        console.log(data)
     }
 
     render() {
@@ -79,6 +86,7 @@ export default class App extends Component<AppProps, AppState> {
                             loading={false}
                             icon='search'
                             placeholder='Search...'
+                            onChange={(e: any) => this.doFilter(e.target.value)}
                             action={
                                 <Button onClick={this.doSearch.bind(this)} animated='vertical' loading={this.state.searching}>
                                     <Button.Content visible>Search</Button.Content>
@@ -118,7 +126,7 @@ export default class App extends Component<AppProps, AppState> {
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
-                    <ServerList servers={this.state.servers} />
+                    <ServerList servers={this.state.servers} filter={this.state.searchQuery} />
                 </Grid.Row>
             </Grid>
         </Container>

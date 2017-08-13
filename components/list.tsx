@@ -1,29 +1,48 @@
 import * as React from "react";
 import { Component } from "react";
 import { Table } from 'semantic-ui-react';
+import * as Fuse from 'fuse.js'
 
 import ServerCore from "./server"
 import ServerListRow from "./server"
 
 interface IServerListProps extends React.Props<any> {
     servers: any
+    filter: string
 }
 
-interface IServerListState {
-    selected: string
-}
+interface IServerListState { }
 
 export default class ServerList extends Component<IServerListProps, IServerListState> {
     constructor(props: IServerListProps) {
         super(props)
-        this.state = {
-            selected: "" // nothing selected on init
-        }
     }
 
     render() {
+        let servers: Array<ServerCore>;
+
+        if (this.props.filter != "") {
+            let fuse = new Fuse(this.props.servers, {
+                shouldSort: true,
+                threshold: 0.4,
+                location: 0,
+                distance: 25,
+                maxPatternLength: 32,
+                minMatchCharLength: 2,
+                keys: [
+                    "ip",
+                    "hn",
+                    "gm",
+                    "la"
+                ]
+            });
+            servers = fuse.search<ServerCore>(this.props.filter);
+        } else {
+            servers = this.props.servers
+        }
+
         return (
-            <Table celled inverted selectable>
+            <Table celled inverted selectable size='small' >
                 <Table.Header>
                     <Table.Row disabled={true}>
                         <Table.HeaderCell>Address</Table.HeaderCell>
@@ -34,13 +53,12 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>{
-                    this.props.servers.map((server: any, index: number) => {
+                    servers.map((server: any, index: number) => {
                         return <ServerListRow key={index} server={server} />
                     })
                 }
                 </Table.Body>
             </Table>
         )
-        // return (<table><tbody></tbody></table>)
     }
 }
