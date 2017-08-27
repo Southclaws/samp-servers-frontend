@@ -5,10 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +34,7 @@
     "react-scripts": "1.0.10",
     "react-toolbox": "^2.0.0-beta.12",
     "semantic-ui-react": "^0.71.3",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
@@ -46,6 +45,7 @@
     "image-webpack-loader": "^3.3.1",
     "source-map-loader": "^0.2.1",
     "typescript": "^2.4.1",
-    "typings": "^2.1.1"
+    "typings": "^2.1.1",
+    "webpack-merge": "^4.1.0"
   }
 }
