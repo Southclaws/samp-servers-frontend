@@ -3,19 +3,41 @@ import { Component } from "react";
 import { Table } from 'semantic-ui-react';
 import * as Fuse from 'fuse.js'
 
-import ServerCore from "./server"
+import { ServerCore, ServerFull } from "./interfaces"
 import ServerListRow from "./server"
+import ServerDetails from "./details"
 
-interface IServerListProps extends React.Props<any> {
+interface IServerListProps {
     servers: any
     filter: string
 }
 
-interface IServerListState { }
+interface IServerListState {
+    selected: ServerCore
+}
 
 export default class ServerList extends Component<IServerListProps, IServerListState> {
     constructor(props: IServerListProps) {
         super(props)
+        this.props = {
+            servers: props.servers,
+            filter: props.filter,
+        }
+        this.state = {
+            selected: null
+        }
+    }
+
+    async select(server: ServerCore) {
+        this.setState({
+            selected: server,
+        })
+    }
+
+    async unSelect() {
+        this.setState({
+            selected: null,
+        })
     }
 
     render() {
@@ -41,24 +63,35 @@ export default class ServerList extends Component<IServerListProps, IServerListS
             servers = this.props.servers
         }
 
+        let renderModal = <div />
+
+        if (this.state != null) {
+            if (this.state.selected != null) {
+                renderModal = <ServerDetails selected={this.state.selected} onClose={this.unSelect.bind(this)} />
+            }
+        }
+
         return (
-            <Table celled inverted selectable size='small' >
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Address</Table.HeaderCell>
-                        <Table.HeaderCell>Hostname</Table.HeaderCell>
-                        <Table.HeaderCell>Players</Table.HeaderCell>
-                        <Table.HeaderCell>Gamemode</Table.HeaderCell>
-                        <Table.HeaderCell>Language</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>{
-                    servers.map((server: any, index: number) => {
-                        return <ServerListRow key={index} server={server} />
-                    })
-                }
-                </Table.Body>
-            </Table>
+            <div>
+                {renderModal}
+                <Table celled inverted selectable size='small' >
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Address</Table.HeaderCell>
+                            <Table.HeaderCell>Hostname</Table.HeaderCell>
+                            <Table.HeaderCell>Players</Table.HeaderCell>
+                            <Table.HeaderCell>Gamemode</Table.HeaderCell>
+                            <Table.HeaderCell>Language</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>{
+                        servers.map((server: any, index: number) => {
+                            return <ServerListRow key={index} server={server} onClick={this.select.bind(this)} />
+                        })
+                    }
+                    </Table.Body>
+                </Table>
+            </div>
         )
     }
 }

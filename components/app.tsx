@@ -4,7 +4,7 @@ import { SyntheticEvent, Component } from "react";
 import { Container, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic } from 'semantic-ui-react';
 import Device from 'react-device'
 
-import { ServerFull, ServerCore, decodeServerCore } from "./server"
+import { ServerFull, ServerCore, decodeServerCore } from "./interfaces"
 import ServerList from "./list"
 
 interface AppProps { }
@@ -152,7 +152,7 @@ export default class App extends Component<AppProps, AppState> {
                         <Grid container columns="3" padded>
                             <Grid.Row>
                                 <Grid.Column >
-                                    <Statistic label='Players' value={numPlayers} inverted='true' />
+                                    <Statistic label='Players' value={numPlayers} />
                                 </Grid.Column >
                                 {this.state.isMobile ? (null) :
                                     (<Grid.Column >
@@ -160,7 +160,7 @@ export default class App extends Component<AppProps, AppState> {
                                     </Grid.Column >)
                                 }
                                 <Grid.Column >
-                                    <Statistic label='Servers' value={numServers} inverted='true' />
+                                    <Statistic label='Servers' value={numServers} />
                                 </Grid.Column >
                             </Grid.Row>
                         </Grid>
@@ -223,7 +223,9 @@ export default class App extends Component<AppProps, AppState> {
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns="1">
-                    <ServerList servers={this.state.servers} filter={this.state.searchQuery} />
+                    <ServerList
+                        servers={this.state.servers}
+                        filter={this.state.searchQuery} />
                 </Grid.Row>
             </Grid>
         </Container >
