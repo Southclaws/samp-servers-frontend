@@ -152,7 +152,7 @@ export default class App extends Component<AppProps, AppState> {
                         <Grid container columns="3" padded>
                             <Grid.Row>
                                 <Grid.Column >
-                                    <Statistic label='Players' value={numPlayers} />
+                                    <Statistic label='Players' value={numPlayers} inverted />
                                 </Grid.Column >
                                 {this.state.isMobile ? (null) :
                                     (<Grid.Column >
@@ -160,7 +160,7 @@ export default class App extends Component<AppProps, AppState> {
                                     </Grid.Column >)
                                 }
                                 <Grid.Column >
-                                    <Statistic label='Servers' value={numServers} />
+                                    <Statistic label='Servers' value={numServers} inverted />
                                 </Grid.Column >
                             </Grid.Row>
                         </Grid>
