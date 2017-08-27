@@ -34,7 +34,6 @@
     "react-scripts": "1.0.10",
     "react-toolbox": "^2.0.0-beta.12",
     "semantic-ui-react": "^0.71.3",
-    "uglifyjs-webpack-plugin": "^0.4.6",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
@@ -47,6 +46,8 @@
     "source-map-loader": "^0.2.1",
     "typescript": "^2.4.1",
     "typings": "^2.1.1",
+    "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony-v2.8.22",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack-merge": "^4.1.0"
   }
 }
