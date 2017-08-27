@@ -142,14 +142,18 @@ export default class App extends Component<AppProps, AppState> {
             <Grid padded>
                 <Grid.Row columns="2">
                     <Grid.Column width='6' >
-                        <Container>
-                            <Header size='huge' as='h1' inverted>SA:MP Servers
-                            <Header.Subheader>by southclaws</Header.Subheader>
-                            </Header>
-                        </Container>
+                        <Grid stackable container columns="1" padded>
+                            <Grid.Row>
+                                <Grid.Column>
+                                    <Header size='huge' as='h1' inverted>SA:MP Servers
+                                    <Header.Subheader>by southclaws</Header.Subheader>
+                                    </Header>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
                     </Grid.Column >
                     <Grid.Column >
-                        <Grid container columns="3" padded>
+                        <Grid stackable container columns="3" padded>
                             <Grid.Row>
                                 <Grid.Column >
                                     <Statistic label='Players' value={numPlayers} inverted />
@@ -161,6 +165,11 @@ export default class App extends Component<AppProps, AppState> {
                                 }
                                 <Grid.Column >
                                     <Statistic label='Servers' value={numServers} inverted />
+                                </Grid.Column >
+                            </Grid.Row>
+                            <Grid.Row centered>
+                                <Grid.Column >
+                                    <Statistic size="mini" label='Players per Server' value={(numPlayers / numServers).toFixed(1)} inverted />
                                 </Grid.Column >
                             </Grid.Row>
                         </Grid>
