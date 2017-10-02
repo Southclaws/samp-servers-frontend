@@ -1,7 +1,7 @@
 import * as URL from 'url'
 import * as React from "react";
 import { SyntheticEvent, Component } from "react";
-import { Container, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic } from 'semantic-ui-react';
+import { Container, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic, Image, Modal } from 'semantic-ui-react';
 import Device from 'react-device'
 
 import { ServerFull, ServerCore, decodeServerCore } from "./interfaces"
@@ -17,11 +17,19 @@ interface AppState {
     addAddress: string
     addSuccess: boolean
     isMobile: boolean
+    clientButton: string
 }
 
 export default class App extends Component<AppProps, AppState> {
     constructor(props: AppProps) {
         super(props);
+
+        let clientButtonText = [
+            "SA:MP Client Not Good Enough?",
+            "Try a Modern SA:MP Client Today",
+            "Are You Still Using The Default Client?",
+        ]
+
         this.state = {
             servers: [],
             searching: false,
@@ -31,6 +39,7 @@ export default class App extends Component<AppProps, AppState> {
             addAddress: "",
             addSuccess: false,
             isMobile: false,
+            clientButton: clientButtonText[Math.floor(Math.random() * clientButtonText.length)],
         };
     }
     componentDidMount() {
@@ -40,7 +49,7 @@ export default class App extends Component<AppProps, AppState> {
     async getServers() {
         let response: Response
         try {
-            response = await fetch("http://api.samp.southcla.ws/v1/servers")
+            response = await fetch("http://api.samp.southcla.ws/v2/servers")
         } catch (error) {
             console.log("failed to GET server list:", error)
             return
@@ -92,7 +101,7 @@ export default class App extends Component<AppProps, AppState> {
 
         let response: Response
         try {
-            response = await fetch('http://api.samp.southcla.ws/v1/server', {
+            response = await fetch('http://api.samp.southcla.ws/2/server', {
                 method: 'POST',
                 headers: {
                     'Accept': 'text/plain',
@@ -148,6 +157,37 @@ export default class App extends Component<AppProps, AppState> {
                                     <Header size='huge' as='h1' inverted>SA:MP Servers
                                     <Header.Subheader>by southclaws</Header.Subheader>
                                     </Header>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row centered>
+                                <Grid.Column width='10' >
+                                    <Modal size="fullscreen" trigger={<Button color="blue" size="large">{this.state.clientButton}</Button>}>
+                                        <Modal.Header>Advanced Server Browser</Modal.Header>
+                                        <Modal.Content image>
+                                            <Image wrapped size='massive' src="https://i.imgur.com/78i7MbM.png" />
+                                            {/* <Image wrapped size='massive' src="https://i.imgur.com/o6hAFAx.png" />
+                                            <Image wrapped size='massive' src="https://i.imgur.com/hkTck4d.png" />
+                                            <Image wrapped size='massive' src="https://i.imgur.com/uijZ3ZG.png" />
+                                            <Image wrapped size='massive' src="https://i.imgur.com/rmtqjfJ.png" />
+                                            <Image wrapped size='massive' src="https://i.imgur.com/TN6UnJ7.png" />
+                                            <Image wrapped size='massive' src="https://i.imgur.com/rum16VT.png" />
+                                            <Image wrapped size='massive' src="https://i.imgur.com/vFqytVY.png" /> */}
+                                            <Modal.Description >
+                                                <Header>Advanced Server Browser</Header>
+                                                <Container text>
+                                                    This application allows you to view a vast amount of SA-MP servers, filter them, save them as your favourites and play on them. You won't loose your original favourites, since those will be taken over. Also it includes a SA-MP version changer, access to SA-MP legacy settings, screenshots and chatlogs.
+                                                </Container>
+                                                <Divider />
+                                                <a href="https://github.com/Bios-Marcel/ServerBrowser/releases/download/1.3.5/ServerBrowser-1.3.5-Installer.exe">
+                                                    <Button color="green" size="large">Download Now</Button>
+                                                </a>
+                                                <Divider />
+                                                <a href="https://github.com/Bios-Marcel/ServerBrowser/">
+                                                    <Button color="blue" size="large">Source Code</Button>
+                                                </a>
+                                            </Modal.Description>
+                                        </Modal.Content>
+                                    </Modal>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>

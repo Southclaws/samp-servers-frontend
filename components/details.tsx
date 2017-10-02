@@ -27,7 +27,7 @@ export default class ServerDetails extends Component<IServerDetailsProps, IServe
     async load(server: ServerCore) {
         let response: Response
         try {
-            response = await fetch("http://api.samp.southcla.ws/v1/server/" + server.ip)
+            response = await fetch("http://api.samp.southcla.ws/v2/server/" + server.ip)
         } catch (error) {
             console.log("failed to GET server:", error)
             return
