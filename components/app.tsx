@@ -101,7 +101,7 @@ export default class App extends Component<AppProps, AppState> {
 
         let response: Response
         try {
-            response = await fetch('http://api.samp.southcla.ws/2/server', {
+            response = await fetch('http://api.samp.southcla.ws/v2/server', {
                 method: 'POST',
                 headers: {
                     'Accept': 'text/plain',
