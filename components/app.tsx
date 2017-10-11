@@ -44,8 +44,10 @@ export default class App extends Component<AppProps, AppState> {
                         <Stats isMobile={this.state.isMobile} />
                     </Grid.Column >
                 </Grid.Row>
-                <Divider inverted />
-                <ServerList />
+                <Grid.Row>
+                    <Divider inverted />
+                    <ServerList />
+                </Grid.Row>
             </Grid>
         </Container >
         )

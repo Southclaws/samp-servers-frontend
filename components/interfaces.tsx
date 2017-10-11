@@ -21,6 +21,12 @@ export interface ServerRules {
     [key: string]: string
 }
 
+export interface Statistics {
+    servers: number
+    players: number
+    playersPerServer: number
+}
+
 export function decodeServerCore(obj: any): ServerCore {
     let ret: ServerCore = {
         ip: obj.ip,
@@ -32,6 +38,15 @@ export function decodeServerCore(obj: any): ServerCore {
         pa: obj.pa,
     }
 
+    return ret
+}
+
+export function decodeStatistics(obj: any): Statistics {
+    let ret: Statistics = {
+        servers: obj.servers,
+        players: obj.players,
+        playersPerServer: obj.players_per_server,
+    }
     return ret
 }
 
