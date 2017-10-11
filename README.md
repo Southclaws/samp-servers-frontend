@@ -1,10 +1,8 @@
-# announce-frontend
+# samp-servers.net
 
-Live at: http://samp.southcla.ws
+http://samp-servers.net
 
-Frontend for the SA:MP alternative masterlist - backend API: https://github.com/Southclaws/announce-backend
-
-Very early in development! Also **my first** Javascript, Typescript *and* ReactJS project so feel free to criticise and point out mistakes and bad practice :)
+A SA:MP server listing service that does not rely on the official masterlist where anyone can post server or search for servers.
 
 ## Screenshots
 
