@@ -6,6 +6,8 @@ module.exports = merge(common, {
     devServer: {
         headers: {
             "Access-Control-Allow-Origin": "*"
-        }
+        },
+        publicPath: '/',
+        historyApiFallback: true
     }
 });

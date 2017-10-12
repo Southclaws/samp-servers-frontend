@@ -7,7 +7,9 @@ import { ServerCore, ServerFull } from "./interfaces"
 import ServerListRow from "./server"
 import ServerDetails from "./details"
 
-interface IServerListProps { }
+interface IServerListProps {
+    selected: string
+}
 
 interface IServerListState {
     filter: string
@@ -18,7 +20,7 @@ interface IServerListState {
     searchQuery: string
     addAddress: string
     addSuccess: boolean
-    selected: ServerCore
+    selected: string
 }
 
 export default class ServerList extends Component<IServerListProps, IServerListState> {
@@ -33,7 +35,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
             searchQuery: "",
             addAddress: "",
             addSuccess: false,
-            selected: null
+            selected: this.props.selected
         }
     }
 
@@ -122,9 +124,9 @@ export default class ServerList extends Component<IServerListProps, IServerListS
         this.getServers()
     }
 
-    async select(server: ServerCore) {
+    async select(address: string) {
         this.setState({
-            selected: server,
+            selected: address,
         })
     }
 
@@ -241,7 +243,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                             </Table.Header>
                             <Table.Body>{
                                 servers.map((server: any, index: number) => {
-                                    return <ServerListRow key={index} server={server} onClick={this.select.bind(this)} />
+                                    return <ServerListRow key={index} server={server} />
                                 })
                             }
                             </Table.Body>

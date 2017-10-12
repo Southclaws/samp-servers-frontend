@@ -46,7 +46,8 @@ export default class App extends Component<AppProps, AppState> {
                 </Grid.Row>
                 <Grid.Row>
                     <Divider inverted />
-                    <ServerList />
+                    <Route path="/server/:selected" component={ServerList} />
+                    <Route path="/" component={ServerList} />
                 </Grid.Row>
             </Grid>
         </Container >

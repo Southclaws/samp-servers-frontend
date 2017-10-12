@@ -7,7 +7,7 @@ import { ServerCore, ServerFull, blankServer } from "./interfaces"
 
 
 interface IServerDetailsProps {
-    selected: ServerCore
+    selected: string
     onClose: Function
 }
 
@@ -24,10 +24,10 @@ export default class ServerDetails extends Component<IServerDetailsProps, IServe
         }
     }
 
-    async load(server: ServerCore) {
+    async load(server: string) {
         let response: Response
         try {
-            response = await fetch("http://api.samp.southcla.ws/v2/server/" + server.ip)
+            response = await fetch("http://api.samp.southcla.ws/v2/server/" + server)
         } catch (error) {
             console.log("failed to GET server:", error)
             return
