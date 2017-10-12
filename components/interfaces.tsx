@@ -1,30 +1,29 @@
-
 export interface ServerCore {
-    ip: string
-    hn: string
-    pc: number
-    pm: number
-    gm: string
-    la: string
-    pa: boolean
+    ip: string;
+    hn: string;
+    pc: number;
+    pm: number;
+    gm: string;
+    la: string;
+    pa: boolean;
 }
 
 export interface ServerFull {
-    core: ServerCore
-    ru: ServerRules
-    pl: Array<string>
-    description: string
-    banner: string
+    core: ServerCore;
+    ru: ServerRules;
+    pl: Array<string>;
+    description: string;
+    banner: string;
 }
 
 export interface ServerRules {
-    [key: string]: string
+    [key: string]: string;
 }
 
 export interface Statistics {
-    servers: number
-    players: number
-    playersPerServer: number
+    servers: number;
+    players: number;
+    playersPerServer: number;
 }
 
 export function decodeServerCore(obj: any): ServerCore {
@@ -35,19 +34,19 @@ export function decodeServerCore(obj: any): ServerCore {
         pm: obj.pm,
         gm: obj.gm,
         la: obj.la,
-        pa: obj.pa,
-    }
+        pa: obj.pa
+    };
 
-    return ret
+    return ret;
 }
 
 export function decodeStatistics(obj: any): Statistics {
     let ret: Statistics = {
         servers: obj.servers,
         players: obj.players,
-        playersPerServer: obj.players_per_server,
-    }
-    return ret
+        playersPerServer: obj.players_per_server
+    };
+    return ret;
 }
 
 export function blankServer(): ServerFull {
@@ -58,15 +57,15 @@ export function blankServer(): ServerFull {
         pm: 0,
         gm: "",
         la: "",
-        pa: false,
-    }
+        pa: false
+    };
     let r: ServerFull = {
         core: c,
         ru: {},
         pl: [],
         description: "",
         banner: ""
-    }
+    };
 
-    return r
+    return r;
 }

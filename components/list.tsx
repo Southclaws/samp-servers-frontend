@@ -1,29 +1,29 @@
 import * as React from "react";
 import { Component, SyntheticEvent } from "react";
-import { Table, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic, Image, Modal } from 'semantic-ui-react';
-import * as Fuse from 'fuse.js'
+import { Table, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic, Image, Modal } from "semantic-ui-react";
+import * as Fuse from "fuse.js";
 
-import { ServerCore, ServerFull } from "./interfaces"
-import ServerListRow from "./server"
-import ServerDetails from "./details"
+import { ServerCore, ServerFull } from "./interfaces";
+import ServerListRow from "./server";
+import ServerDetails from "./details";
 
-interface IServerListProps { }
+interface IServerListProps {}
 
 interface IServerListState {
-    filter: string
-    servers: ServerCore[]
-    searching: boolean
-    refreshing: boolean
-    adding: boolean
-    searchQuery: string
-    addAddress: string
-    addSuccess: boolean
-    selected: ServerCore
+    filter: string;
+    servers: ServerCore[];
+    searching: boolean;
+    refreshing: boolean;
+    adding: boolean;
+    searchQuery: string;
+    addAddress: string;
+    addSuccess: boolean;
+    selected: ServerCore;
 }
 
 export default class ServerList extends Component<IServerListProps, IServerListState> {
     constructor(props: IServerListProps) {
-        super(props)
+        super(props);
         this.state = {
             filter: "",
             servers: [],
@@ -34,109 +34,115 @@ export default class ServerList extends Component<IServerListProps, IServerListS
             addAddress: "",
             addSuccess: false,
             selected: null
-        }
+        };
     }
 
     componentDidMount() {
-        this.getServers()
+        this.getServers();
     }
 
     async getServers() {
-        let response: Response
+        let response: Response;
         try {
-            response = await fetch("http://api.samp.southcla.ws/v2/servers")
+            response = await fetch("http://api.samp.southcla.ws/v2/servers");
         } catch (error) {
-            console.log("failed to GET server list:", error)
-            return
+            console.log("failed to GET server list:", error);
+            return;
         }
 
-        let data: Array<Object>
+        let data: Array<Object>;
         try {
-            data = await response.json()
+            data = await response.json();
         } catch (error) {
-            console.log("failed to parse response as JSON:", error)
-            return
+            console.log("failed to parse response as JSON:", error);
+            return;
         }
 
-        let servers: ServerCore[] = []
+        let servers: ServerCore[] = [];
         data.forEach((server: ServerCore) => {
-            servers.push(server)
+            servers.push(server);
         });
 
         this.setState({
             servers: servers,
             refreshing: false,
             searching: false
-        })
+        });
     }
 
     async doAddServer(event: SyntheticEvent<any>, data: object) {
         if (this.state.addAddress.length < 3) {
-            return
+            return;
         }
 
-        this.setState({ adding: true })
+        this.setState({ adding: true });
 
-        let response: Response
+        let response: Response;
         try {
-            response = await fetch('http://api.samp.southcla.ws/v2/server', {
-                method: 'POST',
+            response = await fetch("http://api.samp.southcla.ws/v2/server", {
+                method: "POST",
                 headers: {
-                    'Accept': 'text/plain',
-                    'Content-Type': 'text/plain',
+                    Accept: "text/plain",
+                    "Content-Type": "text/plain"
                 },
                 body: this.state.addAddress
-            })
+            });
         } catch (error) {
-            console.log("failed to POST server:", error)
-            return
+            console.log("failed to POST server:", error);
+            return;
         }
 
         if (response.status != 200) {
-            console.log("server POST response not OK:", response.status)
-            return
+            console.log("server POST response not OK:", response.status);
+            return;
         }
 
         this.setState({
             adding: false,
             addSuccess: true,
             addAddress: ""
-        })
-        setTimeout(() => { this.setState({ addSuccess: false }) }, 2500)
+        });
+        setTimeout(() => {
+            this.setState({ addSuccess: false });
+        }, 2500);
     }
 
     doFilter(query: string) {
-        this.setState({ searchQuery: query })
+        this.setState({ searchQuery: query });
     }
     doAdd(address: string) {
-        this.setState({ addAddress: address })
+        this.setState({ addAddress: address });
     }
 
     doSearch(event: SyntheticEvent<any>, data: object) {
-        this.setState({ searching: true })
-        this.getServers() // temp until v2 API is implemented
+        this.setState({ searching: true });
+        this.getServers(); // temp until v2 API is implemented
     }
 
     doRefresh(event: SyntheticEvent<any>, data: object) {
-        this.setState({ refreshing: true })
-        this.getServers()
+        this.setState({ refreshing: true });
+        this.getServers();
     }
 
     async select(server: ServerCore) {
         this.setState({
-            selected: server,
-        })
+            selected: server
+        });
     }
 
     async unSelect() {
         this.setState({
-            selected: null,
-        })
+            selected: null
+        });
     }
 
     render() {
         if (this.state.servers === null) {
-            return (<div><p>The samp-servers.net API is currently unavailable.</p></div>)
+            return (
+                <div>
+                    <p>The samp-servers.net API is currently unavailable.</p>
+                </div>
+            );
         }
 
         let servers: Array<ServerCore>;
@@ -149,23 +155,18 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                 distance: 25,
                 maxPatternLength: 32,
                 minMatchCharLength: 2,
-                keys: [
-                    "ip",
-                    "hn",
-                    "gm",
-                    "la"
-                ]
+                keys: ["ip", "hn", "gm", "la"]
             });
             servers = fuse.search<ServerCore>(this.state.filter);
         } else {
-            servers = this.state.servers
+            servers = this.state.servers;
         }
 
-        let renderModal = <div />
+        let renderModal = <div />;
 
         if (this.state != null) {
             if (this.state.selected != null) {
-                renderModal = <ServerDetails selected={this.state.selected} onClose={this.unSelect.bind(this)} />
+                renderModal = <ServerDetails selected={this.state.selected} onClose={this.unSelect.bind(this)} />;
             }
         }
 
@@ -174,62 +175,64 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                 {renderModal}
                 <Grid>
                     <Grid.Row columns="3">
-                        <Grid.Column >
+                        <Grid.Column>
                             <Input
                                 inverted
                                 fluid
-                                iconPosition='left'
+                                iconPosition="left"
                                 loading={false}
-                                icon='search'
-                                placeholder='Search...'
+                                icon="search"
+                                placeholder="Search..."
                                 onChange={(e: any) => this.doFilter(e.target.value)}
                                 action={
-                                    <Button onClick={this.doSearch.bind(this)} animated='vertical' loading={this.state.searching}>
+                                    <Button onClick={this.doSearch.bind(this)} animated="vertical" loading={this.state.searching}>
                                         <Button.Content visible>Search</Button.Content>
-                                        <Button.Content hidden >
-                                            <Icon name='search' />
+                                        <Button.Content hidden>
+                                            <Icon name="search" />
                                         </Button.Content>
                                     </Button>
                                 }
                             />
                         </Grid.Column>
-                        <Grid.Column >
+                        <Grid.Column>
                             {/* side note: making the button 'inverted' looks ugly af for some reason... */}
-                            <Button onClick={this.doRefresh.bind(this)} fluid animated='vertical' loading={this.state.refreshing}>
+                            <Button onClick={this.doRefresh.bind(this)} fluid animated="vertical" loading={this.state.refreshing}>
                                 <Button.Content visible>Refresh</Button.Content>
-                                <Button.Content hidden >
-                                    <Icon name='refresh' />
+                                <Button.Content hidden>
+                                    <Icon name="refresh" />
                                 </Button.Content>
                             </Button>
                         </Grid.Column>
-                        <Grid.Column >
+                        <Grid.Column>
                             <Input
                                 value={this.state.addAddress}
                                 inverted
                                 fluid
-                                iconPosition='left'
+                                iconPosition="left"
                                 loading={this.state.adding}
-                                icon='sitemap'
-                                placeholder='Paste a server address'
+                                icon="sitemap"
+                                placeholder="Paste a server address"
                                 onChange={(e: any) => this.doAdd(e.target.value)}
                                 action={
                                     <Popup
-                                        content='Added! The server may take a minute or two to appear on the list.'
+                                        content="Added! The server may take a minute or two to appear on the list."
                                         open={this.state.addSuccess}
                                         hideOnScroll
-                                        trigger={<Button onClick={this.doAddServer.bind(this)} animated='vertical' loading={this.state.adding}>
-                                            <Button.Content visible>Add</Button.Content>
-                                            <Button.Content hidden >
-                                                <Icon name='plus' />
-                                            </Button.Content>
-                                        </Button>}
+                                        trigger={
+                                            <Button onClick={this.doAddServer.bind(this)} animated="vertical" loading={this.state.adding}>
+                                                <Button.Content visible>Add</Button.Content>
+                                                <Button.Content hidden>
+                                                    <Icon name="plus" />
+                                                </Button.Content>
+                                            </Button>
+                                        }
                                     />
                                 }
                             />
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row columns="1">
-                        <Table celled inverted selectable size='small' >
+                        <Table celled inverted selectable size="small">
                             <Table.Header>
                                 <Table.Row>
                                     <Table.HeaderCell>Address</Table.HeaderCell>
@@ -239,15 +242,15 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                                     <Table.HeaderCell>Language</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
-                            <Table.Body>{
-                                servers.map((server: any, index: number) => {
-                                    return <ServerListRow key={index} server={server} onClick={this.select.bind(this)} />
-                                })
-                            }
+                            <Table.Body>
+                                {servers.map((server: any, index: number) => {
+                                    return <ServerListRow key={index} server={server} onClick={this.select.bind(this)} />;
+                                })}
                             </Table.Body>
                         </Table>
                     </Grid.Row>
                 </Grid>
-            </div>)
+            </div>
+        );
     }
 }
