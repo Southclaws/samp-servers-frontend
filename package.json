@@ -12,7 +12,11 @@
         "type": "git",
         "url": "git+https://github.com/Southclaws/announce-frontend.git"
     },
-    "keywords": ["react", "frontend", "restful"],
+    "keywords": [
+        "react",
+        "frontend",
+        "restful"
+    ],
     "author": "Barnaby \"Southclaws\" Keene",
     "license": "GPL-3.0",
     "bugs": {
@@ -28,23 +32,15 @@
         "react-device": "^0.7.0",
         "react-dom": "^15.6.1",
         "react-router-dom": "^4.2.2",
-        "react-scripts": "1.0.10",
-        "react-toolbox": "^2.0.0-beta.12",
-        "semantic-ui-react": "^0.71.3",
-        "whatwg-fetch": "^2.0.3"
+        "semantic-ui-react": "^0.71.3"
     },
     "devDependencies": {
         "@types/node": "^8.0.20",
         "awesome-typescript-loader": "^3.2.1",
-        "compression-webpack-plugin": "^1.0.0",
-        "css-loader": "^0.28.4",
-        "file-loader": "^0.11.2",
-        "image-webpack-loader": "^3.3.1",
         "source-map-loader": "^0.2.1",
         "typescript": "^2.4.1",
-        "typings": "^2.1.1",
-        "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony-v2.8.22",
-        "uglifyjs-webpack-plugin": "^0.4.6",
+        "webpack": "^3.7.1",
+        "webpack-dev-server": "^2.9.1",
         "webpack-merge": "^4.1.0"
     }
 }
