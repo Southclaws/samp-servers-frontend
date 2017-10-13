@@ -5,7 +5,7 @@ import * as Fuse from "fuse.js";
 
 import { ServerCore, ServerFull } from "./interfaces";
 import ServerListRow from "./server";
-import ServerDetails from "./details";
+import ServerModal from "./details-modal";
 
 interface IServerListProps {}
 
@@ -166,7 +166,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
 
         if (this.state != null) {
             if (this.state.selected != null) {
-                renderModal = <ServerDetails selected={this.state.selected} onClose={this.unSelect.bind(this)} />;
+                renderModal = <ServerModal selected={this.state.selected} onClose={this.unSelect.bind(this)} />;
             }
         }
 
