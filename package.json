@@ -27,6 +27,7 @@
         "@types/fuse": "^2.5.1",
         "@types/react": "^15.0.38",
         "@types/react-dom": "^15.5.1",
+        "@types/react-router": "^4.0.15",
         "fuse.js": "^3.0.5",
         "react": "^15.6.1",
         "react-device": "^0.7.0",

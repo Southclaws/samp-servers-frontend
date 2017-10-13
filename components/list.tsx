@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component, SyntheticEvent } from "react";
-import { RouteComponentProps, match } from "react-router-dom";
+import { RouteComponentProps, withRouter, match } from "react-router-dom";
 import { Table, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic, Image, Modal } from "semantic-ui-react";
 import * as Fuse from "fuse.js";
 
@@ -29,7 +29,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
         super(props);
 
         let address: string = null;
-
+        console.log(props.match);
         if (props.match.params.address != null) {
             address = slugToIP(props.match.params.address as string);
         }
@@ -134,18 +134,6 @@ export default class ServerList extends Component<IServerListProps, IServerListS
         this.getServers();
     }
 
-    async select(server: string) {
-        // this.setState({
-        //     selected: server
-        // });
-    }
-
-    async unSelect() {
-        // this.setState({
-        //     selected: null
-        // });
-    }
-
     render() {
         if (this.state.servers === null) {
             return (
@@ -176,7 +164,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
 
         if (this.state != null) {
             if (this.state.selected != null) {
-                renderModal = <ServerModal selectedAddress={this.state.selected} onClose={this.unSelect.bind(this)} />;
+                renderModal = withRouter(<ServerModal selectedAddress={this.state.selected} />);
             }
         }
 
@@ -254,7 +242,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                             </Table.Header>
                             <Table.Body>
                                 {servers.map((server: any, index: number) => {
-                                    return <ServerListRow key={index} server={server} onClick={this.select.bind(this)} />;
+                                    return <ServerListRow key={index} server={server} />;
                                 })}
                             </Table.Body>
                         </Table>

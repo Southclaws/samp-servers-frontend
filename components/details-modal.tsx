@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Component } from "react";
-import { Modal, Icon, Grid, List, Table, Image } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Modal, Icon, Grid, List, Table, Image, Button } from "semantic-ui-react";
 
 import ServerListRow from "./server";
 import { ServerCore, ServerFull, blankServer } from "./interfaces";
@@ -8,7 +9,6 @@ import ServerDetails from "./details";
 
 interface IServerModalProps {
     selectedAddress: string;
-    onClose: Function;
 }
 
 interface IServerModalState {
@@ -43,6 +43,7 @@ export default class ServerModal extends Component<IServerModalProps, IServerMod
 
     render() {
         if (this.props.selectedAddress == null) {
+            console.log("no address selected");
             return null;
         }
 
@@ -58,13 +59,16 @@ export default class ServerModal extends Component<IServerModalProps, IServerMod
         let passwordIcon = full.core.pa ? <Icon name="lock" /> : <Icon name="unlock" disabled />;
 
         return (
-            <Modal open closeOnDimmerClick closeOnDocumentClick closeIcon onClose={this.props.onClose.bind(this)}>
+            <Modal open>
                 <Modal.Header>
                     {full.core.hn} {passwordIcon}
                 </Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        <ServerDetails onClose={this.props.onClose.bind(this)} server={full} />
+                        <ServerDetails server={full} />
+                        <Link to="/">
+                            <Button>Close</Button>
+                        </Link>
                     </Modal.Description>
                 </Modal.Content>
             </Modal>

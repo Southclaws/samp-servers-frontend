@@ -7,7 +7,6 @@ import { ServerFull, blankServer } from "./interfaces";
 
 interface IServerDetailsProps {
     server: ServerFull;
-    onClose: Function;
 }
 
 interface IServerDetailsState {}
