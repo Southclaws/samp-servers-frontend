@@ -1,6 +1,6 @@
 import * as URL from "url";
 import * as React from "react";
-import { Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { Component } from "react";
 import { Container, Grid, Divider } from "semantic-ui-react";
 import Device from "react-device";
@@ -47,7 +47,11 @@ export default class App extends Component<AppProps, AppState> {
                     </Grid.Row>
                     <Grid.Row>
                         <Divider inverted />
-                        <ServerList />
+                        <Switch>
+                            <Route exact path="/" component={ServerList} />
+                            <Route exact path="/server" component={ServerList} />
+                            <Route path="/server/:address" component={ServerList} />
+                        </Switch>
                     </Grid.Row>
                 </Grid>
             </Container>

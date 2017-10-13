@@ -1,13 +1,16 @@
 import * as React from "react";
 import { Component, SyntheticEvent } from "react";
+import { RouteComponentProps, match } from "react-router-dom";
 import { Table, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic, Image, Modal } from "semantic-ui-react";
 import * as Fuse from "fuse.js";
 
-import { ServerCore, ServerFull } from "./interfaces";
+import { ServerCore, ServerFull, slugToIP } from "./interfaces";
 import ServerListRow from "./server";
 import ServerModal from "./details-modal";
 
-interface IServerListProps {}
+interface IServerListProps extends RouteComponentProps<any> {
+    match: match;
+}
 
 interface IServerListState {
     filter: string;
@@ -18,12 +21,19 @@ interface IServerListState {
     searchQuery: string;
     addAddress: string;
     addSuccess: boolean;
-    selected: ServerCore;
+    selected: string;
 }
 
 export default class ServerList extends Component<IServerListProps, IServerListState> {
     constructor(props: IServerListProps) {
         super(props);
+
+        let address: string = null;
+
+        if (props.match.params.address != null) {
+            address = slugToIP(props.match.params.address as string);
+        }
+
         this.state = {
             filter: "",
             servers: [],
@@ -33,7 +43,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
             searchQuery: "",
             addAddress: "",
             addSuccess: false,
-            selected: null
+            selected: address
         };
     }
 
@@ -124,16 +134,16 @@ export default class ServerList extends Component<IServerListProps, IServerListS
         this.getServers();
     }
 
-    async select(server: ServerCore) {
-        this.setState({
-            selected: server
-        });
+    async select(server: string) {
+        // this.setState({
+        //     selected: server
+        // });
     }
 
     async unSelect() {
-        this.setState({
-            selected: null
-        });
+        // this.setState({
+        //     selected: null
+        // });
     }
 
     render() {
@@ -166,7 +176,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
 
         if (this.state != null) {
             if (this.state.selected != null) {
-                renderModal = <ServerModal selectedAddress={this.state.selected.ip} onClose={this.unSelect.bind(this)} />;
+                renderModal = <ServerModal selectedAddress={this.state.selected} onClose={this.unSelect.bind(this)} />;
             }
         }
 

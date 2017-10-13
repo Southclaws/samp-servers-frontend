@@ -17,7 +17,7 @@ export default class ServerListRow extends Component<IServerProps, IServerState>
     }
 
     onClick(e: any) {
-        this.props.onClick(this.props.server);
+        this.props.onClick(this.props.server.ip);
     }
 
     render() {

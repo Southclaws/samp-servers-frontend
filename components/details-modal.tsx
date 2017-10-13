@@ -16,14 +16,6 @@ interface IServerModalState {
 }
 
 export default class ServerModal extends Component<IServerModalProps, IServerModalState> {
-    constructor(props: IServerModalProps) {
-        super(props);
-        this.props = {
-            selectedAddress: props.selectedAddress,
-            onClose: props.onClose
-        };
-    }
-
     async load(address: string) {
         let response: Response;
         try {
