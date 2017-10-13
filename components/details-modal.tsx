@@ -7,7 +7,7 @@ import { ServerCore, ServerFull, blankServer } from "./interfaces";
 import ServerDetails from "./details";
 
 interface IServerModalProps {
-    selected: ServerCore;
+    selectedAddress: string;
     onClose: Function;
 }
 
@@ -19,15 +19,15 @@ export default class ServerModal extends Component<IServerModalProps, IServerMod
     constructor(props: IServerModalProps) {
         super(props);
         this.props = {
-            selected: props.selected,
+            selectedAddress: props.selectedAddress,
             onClose: props.onClose
         };
     }
 
-    async load(server: ServerCore) {
+    async load(address: string) {
         let response: Response;
         try {
-            response = await fetch("http://api.samp.southcla.ws/v2/server/" + server.ip);
+            response = await fetch("http://api.samp.southcla.ws/v2/server/" + address);
         } catch (error) {
             console.log("failed to GET server:", error);
             return;
@@ -50,14 +50,14 @@ export default class ServerModal extends Component<IServerModalProps, IServerMod
     }
 
     render() {
-        if (this.props.selected == null) {
+        if (this.props.selectedAddress == null) {
             return null;
         }
 
         let full: ServerFull;
 
         if (this.state == null) {
-            this.load(this.props.selected);
+            this.load(this.props.selectedAddress);
             full = blankServer();
         } else {
             full = this.state.full;
@@ -72,7 +72,7 @@ export default class ServerModal extends Component<IServerModalProps, IServerMod
                 </Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        <ServerDetails onClose={this.props.onClose.bind(this)} fullServer={full} />
+                        <ServerDetails onClose={this.props.onClose.bind(this)} server={full} />
                     </Modal.Description>
                 </Modal.Content>
             </Modal>

@@ -166,7 +166,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
 
         if (this.state != null) {
             if (this.state.selected != null) {
-                renderModal = <ServerModal selected={this.state.selected} onClose={this.unSelect.bind(this)} />;
+                renderModal = <ServerModal selectedAddress={this.state.selected.ip} onClose={this.unSelect.bind(this)} />;
             }
         }
 
