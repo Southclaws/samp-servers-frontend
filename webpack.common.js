@@ -1,9 +1,11 @@
 const path = require("path");
 
 module.exports = {
-    entry: "./index.tsx",
+    entry: {
+        main: "./index.tsx"
+    },
     output: {
-        filename: "bundle.js",
+        filename: "[name].js",
         path: __dirname
     },
     resolve: {
@@ -21,8 +23,11 @@ module.exports = {
                 loader: "source-map-loader"
             },
             {
-                test: /\.css$/,
-                use: ["style-loader", "css-loader"]
+                test: /\.(html)$/,
+                loader: "html-loader",
+                options: {
+                    attrs: [":data-src"]
+                }
             }
         ]
     }
