@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Component } from "react";
-import { Link } from "react-router-dom";
 import { Modal, Icon, Grid, List, Table, Image, Button } from "semantic-ui-react";
 
 import ServerListRow from "./server";
@@ -9,6 +8,7 @@ import ServerDetails from "./details";
 
 interface IServerModalProps {
     selectedAddress: string;
+    onClose: Function;
 }
 
 interface IServerModalState {
@@ -59,16 +59,13 @@ export default class ServerModal extends Component<IServerModalProps, IServerMod
         let passwordIcon = full.core.pa ? <Icon name="lock" /> : <Icon name="unlock" disabled />;
 
         return (
-            <Modal open>
+            <Modal open closeOnDimmerClick closeOnEscape onClose={this.props.onClose.bind(this)}>
                 <Modal.Header>
                     {full.core.hn} {passwordIcon}
                 </Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
                         <ServerDetails server={full} />
-                        <Link to="/">
-                            <Button>Close</Button>
-                        </Link>
                     </Modal.Description>
                 </Modal.Content>
             </Modal>

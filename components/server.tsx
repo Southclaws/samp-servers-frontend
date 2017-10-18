@@ -6,37 +6,41 @@ import { Link } from "react-router-dom";
 import { ServerCore, ipToSlug } from "./interfaces";
 
 interface IServerProps {
-    server: ServerCore;
+    server: ServerCore
+    onClick: Function
 }
 
-interface IServerState {}
+interface IServerState { }
 
 export default class ServerListRow extends Component<IServerProps, IServerState> {
+    constructor(props: IServerProps) {
+        super(props);
+    }
+
+    select(e: any) {
+        this.props.onClick(this.props.server.ip)
+    }
+
     render() {
         let passwordIcon = this.props.server.pa ? <Icon name="lock" /> : <Icon name="unlock" disabled />;
-        let link = "/server/" + ipToSlug(this.props.server.ip);
+        // let link = "/server/" + ipToSlug(this.props.server.ip);
 
         return (
-            <Table.Row>
+            <Table.Row onClick={this.select.bind(this)}>
                 <Table.Cell>
-                    <Link to={link}>
-                        {passwordIcon}
-                        {this.props.server.ip}
-                    </Link>
+                    {passwordIcon}{this.props.server.ip}
                 </Table.Cell>
                 <Table.Cell>
-                    <Link to={link}>{this.props.server.hn}</Link>
+                    {this.props.server.hn}
                 </Table.Cell>
                 <Table.Cell>
-                    <Link to={link}>
-                        {this.props.server.pc}/{this.props.server.pm}
-                    </Link>
+                    {this.props.server.pc}/{this.props.server.pm}
                 </Table.Cell>
                 <Table.Cell>
-                    <Link to={link}>{this.props.server.gm}</Link>
+                    {this.props.server.gm}
                 </Table.Cell>
                 <Table.Cell>
-                    <Link to={link}>{this.props.server.la}</Link>
+                    {this.props.server.la}
                 </Table.Cell>
             </Table.Row>
         );

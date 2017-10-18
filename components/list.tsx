@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Component, SyntheticEvent } from "react";
-import { RouteComponentProps, withRouter, match } from "react-router-dom";
 import { Table, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic, Image, Modal } from "semantic-ui-react";
 import * as Fuse from "fuse.js";
 
@@ -8,12 +7,10 @@ import { ServerCore, ServerFull, slugToIP } from "./interfaces";
 import ServerListRow from "./server";
 import ServerModal from "./details-modal";
 
-interface IServerListProps extends RouteComponentProps<any> {
-    match: match;
-}
+interface IServerListProps { }
 
 interface IServerListState {
-    filter: string;
+    // filter: string;
     servers: ServerCore[];
     searching: boolean;
     refreshing: boolean;
@@ -29,13 +26,9 @@ export default class ServerList extends Component<IServerListProps, IServerListS
         super(props);
 
         let address: string = null;
-        console.log(props.match);
-        if (props.match.params.address != null) {
-            address = slugToIP(props.match.params.address as string);
-        }
 
         this.state = {
-            filter: "",
+            // filter: "",
             servers: [],
             searching: false,
             refreshing: false,
@@ -117,7 +110,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
         }, 2500);
     }
 
-    doFilter(query: string) {
+    doSearchQuery(query: string) {
         this.setState({ searchQuery: query });
     }
     doAdd(address: string) {
@@ -135,6 +128,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
     }
 
     render() {
+        console.log("rendering with ", this.state)
         if (this.state.servers === null) {
             return (
                 <div>
@@ -145,7 +139,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
 
         let servers: Array<ServerCore>;
 
-        if (this.state.filter != "") {
+        if (this.state.searchQuery != "") {
             let fuse = new Fuse(this.state.servers, {
                 shouldSort: true,
                 threshold: 0.4,
@@ -155,7 +149,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                 minMatchCharLength: 2,
                 keys: ["ip", "hn", "gm", "la"]
             });
-            servers = fuse.search<ServerCore>(this.state.filter);
+            servers = fuse.search<ServerCore>(this.state.searchQuery);
         } else {
             servers = this.state.servers;
         }
@@ -164,14 +158,16 @@ export default class ServerList extends Component<IServerListProps, IServerListS
 
         if (this.state != null) {
             if (this.state.selected != null) {
-                renderModal = withRouter(<ServerModal selectedAddress={this.state.selected} />);
+                renderModal = <ServerModal selectedAddress={this.state.selected} onClose={
+                    () => { this.setState({ selected: null }) }
+                } />;
             }
         }
 
         return (
             <div>
                 {renderModal}
-                <Grid>
+                < Grid >
                     <Grid.Row columns="3">
                         <Grid.Column>
                             <Input
@@ -181,7 +177,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                                 loading={false}
                                 icon="search"
                                 placeholder="Search..."
-                                onChange={(e: any) => this.doFilter(e.target.value)}
+                                onChange={(e: any) => this.doSearchQuery(e.target.value)}
                                 action={
                                     <Button onClick={this.doSearch.bind(this)} animated="vertical" loading={this.state.searching}>
                                         <Button.Content visible>Search</Button.Content>
@@ -242,7 +238,10 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                             </Table.Header>
                             <Table.Body>
                                 {servers.map((server: any, index: number) => {
-                                    return <ServerListRow key={index} server={server} />;
+                                    return <ServerListRow key={index} server={server} onClick={(address: string) => {
+                                        console.log("selected:", address)
+                                        this.setState({ selected: address })
+                                    }} />;
                                 })}
                             </Table.Body>
                         </Table>
