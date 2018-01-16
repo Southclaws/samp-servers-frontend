@@ -25,19 +25,36 @@ export default class Clients extends Component<ClientsProps, ClientsState> {
     render() {
         return (
             <Modal
-                size="fullscreen"
+                size="small"
                 trigger={
                     <Button color="blue" size="large">
                         {this.state.clientButton}
                     </Button>
                 }
             >
-                <Modal.Header>Advanced Server Browser</Modal.Header>
+                <Modal.Header>Alternative SA:MP Server Browsers and Launchers</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
                         <List>
                             <List.Item>
-                                <Header>Advanced Server Browser</Header>
+                                <Header>SAMPLauncherNET</Header>
+                                <Container text>
+                                    SAMPLauncherNET is a more modern approach to San Andreas
+                                    Multiplayer. It is capable to do more things than the native San
+                                    Andreas Multiplayer launcher.
+                                </Container>
+                                <a
+                                    target="_blank"
+                                    href="https://github.com/BigETI/SAMPLauncherNET/releases/"
+                                >
+                                    <Button color="green" size="large">
+                                        Download
+                                    </Button>
+                                </a>
+                            </List.Item>
+                            <Divider />
+                            <List.Item>
+                                <Header>SA-MP Server Browser</Header>
                                 <Container text>
                                     This application allows you to view a vast amount of SA-MP
                                     servers, filter them, save them as your favourites and play on
@@ -45,22 +62,12 @@ export default class Clients extends Component<ClientsProps, ClientsState> {
                                     be taken over. Also it includes a SA-MP version changer, access
                                     to SA-MP legacy settings, screenshots and chatlogs.
                                 </Container>
-                                <Divider />
                                 <a
                                     target="_blank"
                                     href="https://github.com/Bios-Marcel/ServerBrowser/releases/"
                                 >
                                     <Button color="green" size="large">
-                                        Download Now
-                                    </Button>
-                                </a>
-                                <Divider />
-                                <a
-                                    target="_blank"
-                                    href="https://github.com/Bios-Marcel/ServerBrowser/"
-                                >
-                                    <Button color="blue" size="large">
-                                        Source Code
+                                        Download
                                     </Button>
                                 </a>
                             </List.Item>
