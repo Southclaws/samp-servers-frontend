@@ -6,6 +6,7 @@ export interface ServerCore {
     gm: string;
     la: string;
     pa: boolean;
+    vn: string;
 }
 
 export interface ServerFull {
@@ -34,7 +35,8 @@ export function decodeServerCore(obj: any): ServerCore {
         pm: obj.pm,
         gm: obj.gm,
         la: obj.la,
-        pa: obj.pa
+        pa: obj.pa,
+        vn: obj.vn
     };
 
     return ret;
@@ -57,7 +59,8 @@ export function blankServer(): ServerFull {
         pm: 0,
         gm: "",
         la: "",
-        pa: false
+        pa: false,
+        vn: ""
     };
     let r: ServerFull = {
         core: c,

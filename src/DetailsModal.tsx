@@ -1,10 +1,9 @@
 import * as React from "react";
 import { Component } from "react";
-import { Modal, Icon, Grid, List, Table, Image, Button } from "semantic-ui-react";
+import { Modal, Icon } from "semantic-ui-react";
 
-import ServerListRow from "./server";
-import { ServerCore, ServerFull, blankServer } from "./interfaces";
-import ServerDetails from "./details";
+import { ServerFull, blankServer } from "./Interfaces";
+import ServerDetails from "./Details";
 
 interface IServerModalProps {
     selectedAddress: string;

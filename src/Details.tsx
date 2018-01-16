@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Component } from "react";
-import { Modal, Icon, Grid, List, Table, Image } from "semantic-ui-react";
+import { Icon, Grid, List, Table, Image } from "semantic-ui-react";
 
-import ServerListRow from "./server";
-import { ServerFull, blankServer } from "./interfaces";
+import { ServerFull } from "./Interfaces";
 
 interface IServerDetailsProps {
     server: ServerFull;
@@ -60,7 +59,9 @@ export default class ServerDetails extends Component<IServerDetailsProps, IServe
                                     <List.Content>
                                         <List.Header>Description</List.Header>
                                         <List.Description>
-                                            {this.props.server.description ? this.props.server.description : "(no description given)"}
+                                            {this.props.server.description
+                                                ? this.props.server.description
+                                                : "(no description given)"}
                                         </List.Description>
                                     </List.Content>
                                 </List.Item>
@@ -70,16 +71,29 @@ export default class ServerDetails extends Component<IServerDetailsProps, IServe
                                         <List.Header>Rules</List.Header>
                                         <List.Description>
                                             {this.props.server.ru ? (
-                                                <Table size="small" basic="very" celled compact collapsing>
+                                                <Table
+                                                    size="small"
+                                                    basic="very"
+                                                    celled
+                                                    compact
+                                                    collapsing
+                                                >
                                                     <Table.Body>
-                                                        {Object.keys(this.props.server.ru).map((v: string, i: number) => {
-                                                            return (
-                                                                <Table.Row key={i}>
-                                                                    <Table.Cell>{v}</Table.Cell>
-                                                                    <Table.Cell>{this.props.server.ru[v]}</Table.Cell>
-                                                                </Table.Row>
-                                                            );
-                                                        })}
+                                                        {Object.keys(this.props.server.ru).map(
+                                                            (v: string, i: number) => {
+                                                                return (
+                                                                    <Table.Row key={i}>
+                                                                        <Table.Cell>{v}</Table.Cell>
+                                                                        <Table.Cell>
+                                                                            {
+                                                                                this.props.server
+                                                                                    .ru[v]
+                                                                            }
+                                                                        </Table.Cell>
+                                                                    </Table.Row>
+                                                                );
+                                                            }
+                                                        )}
                                                     </Table.Body>
                                                 </Table>
                                             ) : (
@@ -93,7 +107,13 @@ export default class ServerDetails extends Component<IServerDetailsProps, IServe
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
-                    <Grid.Column>{this.state === null ? "" : <Image src={this.props.server.banner} fluid centered />}</Grid.Column>
+                    <Grid.Column>
+                        {this.state === null ? (
+                            ""
+                        ) : (
+                            <Image src={this.props.server.banner} fluid centered />
+                        )}
+                    </Grid.Column>
                 </Grid.Row>
             </Grid>
         );

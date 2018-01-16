@@ -1,11 +1,8 @@
-import * as URL from "url";
 import * as React from "react";
-import { Route } from "react-router-dom";
-import { SyntheticEvent, Component } from "react";
-import { Container, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic, Image, Modal } from "semantic-ui-react";
-import Device from "react-device";
+import { Component } from "react";
+import { Grid, Header } from "semantic-ui-react";
 
-import Clients from "./clients";
+import Clients from "./Clients";
 
 interface InfoProps {}
 interface InfoState {}
@@ -22,7 +19,7 @@ export default class Info extends Component<InfoProps, InfoState> {
                         </Header>
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row centered>
+                <Grid.Row centered={true}>
                     <Grid.Column width="10">
                         <Clients />
                     </Grid.Column>

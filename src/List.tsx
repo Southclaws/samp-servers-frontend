@@ -1,15 +1,15 @@
 import * as React from "react";
 import { Component, SyntheticEvent } from "react";
-import { Table, Segment, Grid, Header, List, Input, Button, Popup, Icon, Divider, Statistic, Image, Modal } from "semantic-ui-react";
+import { Table, Grid, Input, Button, Popup, Icon } from "semantic-ui-react";
 import * as Fuse from "fuse.js";
 
-import { ServerCore, ServerFull, slugToIP } from "./interfaces";
-import ServerListRow from "./server";
-import ServerModal from "./details-modal";
+import { ServerCore } from "./Interfaces";
+import ServerListRow from "./Server";
+import ServerModal from "./DetailsModal";
 
-interface IServerListProps { }
+interface Props {}
 
-interface IServerListState {
+interface State {
     // filter: string;
     servers: ServerCore[];
     searching: boolean;
@@ -18,14 +18,12 @@ interface IServerListState {
     searchQuery: string;
     addAddress: string;
     addSuccess: boolean;
-    selected: string;
+    selected?: string;
 }
 
-export default class ServerList extends Component<IServerListProps, IServerListState> {
-    constructor(props: IServerListProps) {
+export default class ServerList extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
-
-        let address: string = null;
 
         this.state = {
             // filter: "",
@@ -36,7 +34,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
             searchQuery: "",
             addAddress: "",
             addSuccess: false,
-            selected: address
+            selected: undefined
         };
     }
 
@@ -128,7 +126,7 @@ export default class ServerList extends Component<IServerListProps, IServerListS
     }
 
     render() {
-        console.log("rendering with ", this.state)
+        console.log("rendering with ", this.state);
         if (this.state.servers === null) {
             return (
                 <div>
@@ -157,17 +155,22 @@ export default class ServerList extends Component<IServerListProps, IServerListS
         let renderModal = <div />;
 
         if (this.state != null) {
-            if (this.state.selected != null) {
-                renderModal = <ServerModal selectedAddress={this.state.selected} onClose={
-                    () => { this.setState({ selected: null }) }
-                } />;
+            if (this.state.selected != undefined) {
+                renderModal = (
+                    <ServerModal
+                        selectedAddress={this.state.selected}
+                        onClose={() => {
+                            this.setState({ selected: undefined });
+                        }}
+                    />
+                );
             }
         }
 
         return (
             <div>
                 {renderModal}
-                < Grid >
+                <Grid>
                     <Grid.Row columns="3">
                         <Grid.Column>
                             <Input
@@ -179,7 +182,11 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                                 placeholder="Search..."
                                 onChange={(e: any) => this.doSearchQuery(e.target.value)}
                                 action={
-                                    <Button onClick={this.doSearch.bind(this)} animated="vertical" loading={this.state.searching}>
+                                    <Button
+                                        onClick={this.doSearch.bind(this)}
+                                        animated="vertical"
+                                        loading={this.state.searching}
+                                    >
                                         <Button.Content visible>Search</Button.Content>
                                         <Button.Content hidden>
                                             <Icon name="search" />
@@ -190,7 +197,12 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                         </Grid.Column>
                         <Grid.Column>
                             {/* side note: making the button 'inverted' looks ugly af for some reason... */}
-                            <Button onClick={this.doRefresh.bind(this)} fluid animated="vertical" loading={this.state.refreshing}>
+                            <Button
+                                onClick={this.doRefresh.bind(this)}
+                                fluid
+                                animated="vertical"
+                                loading={this.state.refreshing}
+                            >
                                 <Button.Content visible>Refresh</Button.Content>
                                 <Button.Content hidden>
                                     <Icon name="refresh" />
@@ -213,7 +225,11 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                                         open={this.state.addSuccess}
                                         hideOnScroll
                                         trigger={
-                                            <Button onClick={this.doAddServer.bind(this)} animated="vertical" loading={this.state.adding}>
+                                            <Button
+                                                onClick={this.doAddServer.bind(this)}
+                                                animated="vertical"
+                                                loading={this.state.adding}
+                                            >
                                                 <Button.Content visible>Add</Button.Content>
                                                 <Button.Content hidden>
                                                     <Icon name="plus" />
@@ -238,10 +254,16 @@ export default class ServerList extends Component<IServerListProps, IServerListS
                             </Table.Header>
                             <Table.Body>
                                 {servers.map((server: any, index: number) => {
-                                    return <ServerListRow key={index} server={server} onClick={(address: string) => {
-                                        console.log("selected:", address)
-                                        this.setState({ selected: address })
-                                    }} />;
+                                    return (
+                                        <ServerListRow
+                                            key={index}
+                                            server={server}
+                                            onClick={(address: string) => {
+                                                console.log("selected:", address);
+                                                this.setState({ selected: address });
+                                            }}
+                                        />
+                                    );
                                 })}
                             </Table.Body>
                         </Table>
