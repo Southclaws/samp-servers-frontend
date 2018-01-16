@@ -23,6 +23,6 @@ run-prod:
 	docker run \
 		--name samp-servers-frontend \
 		--restart on-failure \
-		-p 7792:80 \
+		-p 7789:80 \
 		-d \
 		southclaws/samp-servers-frontend:$(VERSION)
