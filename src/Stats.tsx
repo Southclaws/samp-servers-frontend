@@ -2,7 +2,7 @@ import * as React from "react";
 import { Component } from "react";
 import { Grid, Divider, Statistic } from "semantic-ui-react";
 
-import { Statistics, decodeStatistics } from "./Interfaces";
+import { Statistics } from "./Interfaces";
 
 interface Ptops {}
 interface State {
@@ -27,16 +27,16 @@ export default class Stats extends Component<Ptops, State> {
             return;
         }
 
-        let data: Object;
+        let data: Statistics;
         try {
-            data = await response.json();
+            data = (await response.json()) as Statistics;
         } catch (error) {
             console.log("failed to parse response as JSON:", error);
             return;
         }
 
         this.setState({
-            statistics: decodeStatistics(data)
+            statistics: data
         });
     }
 

@@ -24,7 +24,7 @@ export default class App extends Component<Props, State> {
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
-                        <Divider inverted />
+                        <Divider inverted={true} />
                         <Switch>
                             <Route exact path="/" component={ServerList} />
                             <Route exact path="/server" component={ServerList} />

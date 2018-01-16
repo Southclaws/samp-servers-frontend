@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, SyntheticEvent } from "react";
+import { Component } from "react";
 import { Table, Grid, Input, Button, Popup, Icon } from "semantic-ui-react";
 import * as Fuse from "fuse.js";
 
@@ -71,7 +71,7 @@ export default class ServerList extends Component<Props, State> {
         });
     }
 
-    async doAddServer(event: SyntheticEvent<any>, data: object) {
+    async doAddServer() {
         if (this.state.addAddress.length < 3) {
             return;
         }
@@ -93,7 +93,7 @@ export default class ServerList extends Component<Props, State> {
             return;
         }
 
-        if (response.status != 200) {
+        if (response.status !== 200) {
             console.log("server POST response not OK:", response.status);
             return;
         }
@@ -115,12 +115,12 @@ export default class ServerList extends Component<Props, State> {
         this.setState({ addAddress: address });
     }
 
-    doSearch(event: SyntheticEvent<any>, data: object) {
+    doSearch() {
         this.setState({ searching: true });
         this.getServers(); // temp until v2 API is implemented
     }
 
-    doRefresh(event: SyntheticEvent<any>, data: object) {
+    doRefresh() {
         this.setState({ refreshing: true });
         this.getServers();
     }
@@ -137,7 +137,7 @@ export default class ServerList extends Component<Props, State> {
 
         let servers: Array<ServerCore>;
 
-        if (this.state.searchQuery != "") {
+        if (this.state.searchQuery !== "") {
             let fuse = new Fuse(this.state.servers, {
                 shouldSort: true,
                 threshold: 0.4,
@@ -155,7 +155,7 @@ export default class ServerList extends Component<Props, State> {
         let renderModal = <div />;
 
         if (this.state != null) {
-            if (this.state.selected != undefined) {
+            if (this.state.selected !== undefined) {
                 renderModal = (
                     <ServerModal
                         selectedAddress={this.state.selected}
@@ -180,10 +180,12 @@ export default class ServerList extends Component<Props, State> {
                                 loading={false}
                                 icon="search"
                                 placeholder="Search..."
-                                onChange={(e: any) => this.doSearchQuery(e.target.value)}
+                                onChange={e => {
+                                    this.doSearchQuery((e.target as HTMLInputElement).value);
+                                }}
                                 action={
                                     <Button
-                                        onClick={this.doSearch.bind(this)}
+                                        onClick={e => this.doSearch()}
                                         animated="vertical"
                                         loading={this.state.searching}
                                     >
@@ -198,7 +200,7 @@ export default class ServerList extends Component<Props, State> {
                         <Grid.Column>
                             {/* side note: making the button 'inverted' looks ugly af for some reason... */}
                             <Button
-                                onClick={this.doRefresh.bind(this)}
+                                onClick={e => this.doRefresh()}
                                 fluid
                                 animated="vertical"
                                 loading={this.state.refreshing}
@@ -218,7 +220,7 @@ export default class ServerList extends Component<Props, State> {
                                 loading={this.state.adding}
                                 icon="sitemap"
                                 placeholder="Paste a server address"
-                                onChange={(e: any) => this.doAdd(e.target.value)}
+                                onChange={e => this.doAdd((e.target as HTMLInputElement).value)}
                                 action={
                                     <Popup
                                         content="Added! The server may take a minute or two to appear on the list."
@@ -226,7 +228,7 @@ export default class ServerList extends Component<Props, State> {
                                         hideOnScroll
                                         trigger={
                                             <Button
-                                                onClick={this.doAddServer.bind(this)}
+                                                onClick={e => this.doAddServer()}
                                                 animated="vertical"
                                                 loading={this.state.adding}
                                             >
@@ -253,7 +255,7 @@ export default class ServerList extends Component<Props, State> {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {servers.map((server: any, index: number) => {
+                                {servers.map((server: ServerCore, index: number) => {
                                     return (
                                         <ServerListRow
                                             key={index}

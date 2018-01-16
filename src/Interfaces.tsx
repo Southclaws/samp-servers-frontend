@@ -27,30 +27,6 @@ export interface Statistics {
     playersPerServer: number;
 }
 
-export function decodeServerCore(obj: any): ServerCore {
-    let ret: ServerCore = {
-        ip: obj.ip,
-        hn: obj.hn,
-        pc: obj.pc,
-        pm: obj.pm,
-        gm: obj.gm,
-        la: obj.la,
-        pa: obj.pa,
-        vn: obj.vn
-    };
-
-    return ret;
-}
-
-export function decodeStatistics(obj: any): Statistics {
-    let ret: Statistics = {
-        servers: obj.servers,
-        players: obj.players,
-        playersPerServer: obj.players_per_server
-    };
-    return ret;
-}
-
 export function blankServer(): ServerFull {
     let c: ServerCore = {
         ip: "",

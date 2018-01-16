@@ -5,16 +5,16 @@ import { Modal, Icon } from "semantic-ui-react";
 import { ServerFull, blankServer } from "./Interfaces";
 import ServerDetails from "./Details";
 
-interface IServerModalProps {
+interface Props {
     selectedAddress: string;
     onClose: Function;
 }
 
-interface IServerModalState {
+interface State {
     full: ServerFull;
 }
 
-export default class ServerModal extends Component<IServerModalProps, IServerModalState> {
+export default class ServerModal extends Component<Props, State> {
     async load(address: string) {
         let response: Response;
         try {
@@ -24,7 +24,7 @@ export default class ServerModal extends Component<IServerModalProps, IServerMod
             return;
         }
 
-        if (response.status != 200) {
+        if (response.status !== 200) {
             console.log("failed to GET server:", response.status);
             return;
         }
@@ -58,7 +58,7 @@ export default class ServerModal extends Component<IServerModalProps, IServerMod
         let passwordIcon = full.core.pa ? <Icon name="lock" /> : <Icon name="unlock" disabled />;
 
         return (
-            <Modal open closeOnDimmerClick closeOnEscape onClose={this.props.onClose.bind(this)}>
+            <Modal open closeOnDimmerClick closeOnEscape onClose={() => this.props.onClose}>
                 <Modal.Header>
                     {full.core.hn} {passwordIcon}
                 </Modal.Header>

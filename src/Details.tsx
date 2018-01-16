@@ -4,13 +4,13 @@ import { Icon, Grid, List, Table, Image } from "semantic-ui-react";
 
 import { ServerFull } from "./Interfaces";
 
-interface IServerDetailsProps {
+interface Props {
     server: ServerFull;
 }
 
-interface IServerDetailsState {}
+interface State {}
 
-export default class ServerDetails extends Component<IServerDetailsProps, IServerDetailsState> {
+export default class ServerDetails extends Component<Props, State> {
     render() {
         return (
             <Grid divided="vertically">

@@ -4,19 +4,19 @@ import { Table, Icon } from "semantic-ui-react";
 
 import { ServerCore } from "./Interfaces";
 
-interface IServerProps {
+interface Props {
     server: ServerCore;
     onClick: Function;
 }
 
-interface IServerState {}
+interface State {}
 
-export default class ServerListRow extends Component<IServerProps, IServerState> {
-    constructor(props: IServerProps) {
+export default class ServerListRow extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
     }
 
-    select(e: any) {
+    select() {
         this.props.onClick(this.props.server.ip);
     }
 
@@ -29,7 +29,7 @@ export default class ServerListRow extends Component<IServerProps, IServerState>
         // let link = "/server/" + ipToSlug(this.props.server.ip);
 
         return (
-            <Table.Row onClick={this.select.bind(this)}>
+            <Table.Row onClick={e => this.select()}>
                 <Table.Cell>
                     {passwordIcon}
                     {this.props.server.ip}
