@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Switch, Route } from "react-router-dom";
 import { Component } from "react";
 import { Container, Grid, Divider } from "semantic-ui-react";
 
@@ -25,11 +24,7 @@ export default class App extends Component<Props, State> {
                     </Grid.Row>
                     <Grid.Row>
                         <Divider inverted={true} />
-                        <Switch>
-                            <Route exact path="/" component={ServerList} />
-                            <Route exact path="/server" component={ServerList} />
-                            <Route path="/server/:address" component={ServerList} />
-                        </Switch>
+                        <ServerList />
                     </Grid.Row>
                 </Grid>
             </Container>

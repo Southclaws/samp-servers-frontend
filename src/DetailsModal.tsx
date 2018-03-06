@@ -18,7 +18,9 @@ export default class ServerModal extends Component<Props, State> {
     async load(address: string) {
         let response: Response;
         try {
-            response = await fetch("http://api.samp.southcla.ws/v2/server/" + address);
+            response = await fetch(
+                "http://api.samp.southcla.ws/v2/server/" + address
+            );
         } catch (error) {
             console.log("failed to GET server:", error);
             return;
@@ -55,10 +57,22 @@ export default class ServerModal extends Component<Props, State> {
             full = this.state.full;
         }
 
-        let passwordIcon = full.core.pa ? <Icon name="lock" /> : <Icon name="unlock" disabled />;
+        let passwordIcon = full.core.pa ? (
+            <Icon name="lock" />
+        ) : (
+            <Icon name="unlock" disabled />
+        );
 
         return (
-            <Modal open closeOnDimmerClick closeOnEscape onClose={() => this.props.onClose}>
+            <Modal
+                open
+                closeOnDimmerClick
+                closeOnEscape
+                onClose={() => {
+                    console.log("closing");
+                    this.props.onClose();
+                }}
+            >
                 <Modal.Header>
                     {full.core.hn} {passwordIcon}
                 </Modal.Header>

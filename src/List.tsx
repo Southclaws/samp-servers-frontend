@@ -1,10 +1,9 @@
 import * as React from "react";
-import { Component } from "react";
+import { Switch, Route, Link, RouteComponentProps } from "react-router-dom";
 import { Table, Grid, Input, Button, Popup, Icon } from "semantic-ui-react";
 import * as Fuse from "fuse.js";
 
 import { ServerCore } from "./Interfaces";
-import ServerListRow from "./Server";
 import ServerModal from "./DetailsModal";
 
 interface Props {}
@@ -18,10 +17,9 @@ interface State {
     searchQuery: string;
     addAddress: string;
     addSuccess: boolean;
-    selected?: string;
 }
 
-export default class ServerList extends Component<Props, State> {
+export default class ServerList extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
@@ -33,8 +31,7 @@ export default class ServerList extends Component<Props, State> {
             adding: false,
             searchQuery: "",
             addAddress: "",
-            addSuccess: false,
-            selected: undefined
+            addSuccess: false
         };
     }
 
@@ -125,6 +122,30 @@ export default class ServerList extends Component<Props, State> {
         this.getServers();
     }
 
+    renderServerRow(server: ServerCore, index: number) {
+        let passwordIcon = server.pa ? (
+            <Icon name="lock" />
+        ) : (
+            <Icon name="unlock" disabled />
+        );
+        return (
+            <Table.Row key={index}>
+                <Table.Cell>
+                    <Link to={"/server/" + server.ip}>
+                        {passwordIcon}
+                        {server.ip}
+                    </Link>
+                </Table.Cell>
+                <Table.Cell>{server.hn}</Table.Cell>
+                <Table.Cell>
+                    {server.pc}/{server.pm}
+                </Table.Cell>
+                <Table.Cell>{server.gm}</Table.Cell>
+                <Table.Cell>{server.la}</Table.Cell>
+            </Table.Row>
+        );
+    }
+
     render() {
         console.log("rendering with ", this.state);
         if (this.state.servers === null) {
@@ -152,24 +173,29 @@ export default class ServerList extends Component<Props, State> {
             servers = this.state.servers;
         }
 
-        let renderModal = <div />;
-
-        if (this.state != null) {
-            if (this.state.selected !== undefined) {
-                renderModal = (
-                    <ServerModal
-                        selectedAddress={this.state.selected}
-                        onClose={() => {
-                            this.setState({ selected: undefined });
-                        }}
-                    />
-                );
-            }
-        }
-
         return (
             <div>
-                {renderModal}
+                <Switch>
+                    <Route path="/server/:address">
+                        {(
+                            thisProps: RouteComponentProps<{
+                                address: string;
+                            }>
+                        ) => {
+                            return (
+                                <ServerModal
+                                    selectedAddress={
+                                        thisProps.match.params.address
+                                    }
+                                    onClose={() => {
+                                        thisProps.history.push("/");
+                                    }}
+                                />
+                            );
+                        }}
+                    </Route>
+                </Switch>
+
                 <Grid>
                     <Grid.Row columns="3">
                         <Grid.Column>
@@ -181,7 +207,9 @@ export default class ServerList extends Component<Props, State> {
                                 icon="search"
                                 placeholder="Search..."
                                 onChange={e => {
-                                    this.doSearchQuery((e.target as HTMLInputElement).value);
+                                    this.doSearchQuery(
+                                        (e.target as HTMLInputElement).value
+                                    );
                                 }}
                                 action={
                                     <Button
@@ -189,7 +217,9 @@ export default class ServerList extends Component<Props, State> {
                                         animated="vertical"
                                         loading={this.state.searching}
                                     >
-                                        <Button.Content visible>Search</Button.Content>
+                                        <Button.Content visible>
+                                            Search
+                                        </Button.Content>
                                         <Button.Content hidden>
                                             <Icon name="search" />
                                         </Button.Content>
@@ -220,7 +250,11 @@ export default class ServerList extends Component<Props, State> {
                                 loading={this.state.adding}
                                 icon="sitemap"
                                 placeholder="Paste a server address"
-                                onChange={e => this.doAdd((e.target as HTMLInputElement).value)}
+                                onChange={e =>
+                                    this.doAdd(
+                                        (e.target as HTMLInputElement).value
+                                    )
+                                }
                                 action={
                                     <Popup
                                         content="Added! The server may take a minute or two to appear on the list."
@@ -228,11 +262,15 @@ export default class ServerList extends Component<Props, State> {
                                         hideOnScroll
                                         trigger={
                                             <Button
-                                                onClick={e => this.doAddServer()}
+                                                onClick={e =>
+                                                    this.doAddServer()
+                                                }
                                                 animated="vertical"
                                                 loading={this.state.adding}
                                             >
-                                                <Button.Content visible>Add</Button.Content>
+                                                <Button.Content visible>
+                                                    Add
+                                                </Button.Content>
                                                 <Button.Content hidden>
                                                     <Icon name="plus" />
                                                 </Button.Content>
@@ -248,25 +286,23 @@ export default class ServerList extends Component<Props, State> {
                             <Table.Header>
                                 <Table.Row>
                                     <Table.HeaderCell>Address</Table.HeaderCell>
-                                    <Table.HeaderCell>Hostname</Table.HeaderCell>
+                                    <Table.HeaderCell>
+                                        Hostname
+                                    </Table.HeaderCell>
                                     <Table.HeaderCell>Players</Table.HeaderCell>
-                                    <Table.HeaderCell>Gamemode</Table.HeaderCell>
-                                    <Table.HeaderCell>Language</Table.HeaderCell>
+                                    <Table.HeaderCell>
+                                        Gamemode
+                                    </Table.HeaderCell>
+                                    <Table.HeaderCell>
+                                        Language
+                                    </Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {servers.map((server: ServerCore, index: number) => {
-                                    return (
-                                        <ServerListRow
-                                            key={index}
-                                            server={server}
-                                            onClick={(address: string) => {
-                                                console.log("selected:", address);
-                                                this.setState({ selected: address });
-                                            }}
-                                        />
-                                    );
-                                })}
+                                {servers.map(
+                                    (server: ServerCore, index: number) =>
+                                        this.renderServerRow(server, index)
+                                )}
                             </Table.Body>
                         </Table>
                     </Grid.Row>
