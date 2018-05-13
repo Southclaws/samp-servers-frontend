@@ -21,7 +21,7 @@ export default class Stats extends Component<Ptops, State> {
     async getStatistics() {
         let response: Response;
         try {
-            response = await fetch("http://api.samp.southcla.ws/v2/stats");
+            response = await fetch("https://api.samp-servers.net/v2/stats");
         } catch (error) {
             console.log("failed to GET stats:", error);
             return;
@@ -52,7 +52,11 @@ export default class Stats extends Component<Ptops, State> {
             <Grid stackable container columns="3" padded>
                 <Grid.Row>
                     <Grid.Column>
-                        <Statistic label="Players" value={numPlayers} inverted />
+                        <Statistic
+                            label="Players"
+                            value={numPlayers}
+                            inverted
+                        />
                     </Grid.Column>
                     <Grid.Column>
                         <Divider vertical inverted>
@@ -60,7 +64,11 @@ export default class Stats extends Component<Ptops, State> {
                         </Divider>
                     </Grid.Column>
                     <Grid.Column>
-                        <Statistic label="Servers" value={numServers} inverted />
+                        <Statistic
+                            label="Servers"
+                            value={numServers}
+                            inverted
+                        />
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>

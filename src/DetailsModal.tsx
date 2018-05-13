@@ -19,7 +19,7 @@ export default class ServerModal extends Component<Props, State> {
         let response: Response;
         try {
             response = await fetch(
-                "http://api.samp.southcla.ws/v2/server/" + address
+                "https://api.samp-servers.net/v2/server/" + address
             );
         } catch (error) {
             console.log("failed to GET server:", error);

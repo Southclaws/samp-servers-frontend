@@ -77,7 +77,7 @@ export default class ServerList extends React.Component<Props, State> {
 
         let response: Response;
         try {
-            response = await fetch("http://api.samp.southcla.ws/v2/server", {
+            response = await fetch("https://api.samp-servers.net/v2/server", {
                 method: "POST",
                 headers: {
                     Accept: "text/plain",
