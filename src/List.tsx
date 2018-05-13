@@ -42,7 +42,7 @@ export default class ServerList extends React.Component<Props, State> {
     async getServers() {
         let response: Response;
         try {
-            response = await fetch("http://api.samp.southcla.ws/v2/servers");
+            response = await fetch("https://api.samp-servers.net/v2/servers");
         } catch (error) {
             console.log("failed to GET server list:", error);
             return;
