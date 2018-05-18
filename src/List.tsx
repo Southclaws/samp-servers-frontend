@@ -42,7 +42,7 @@ export default class ServerList extends React.Component<Props, State> {
     async getServers() {
         let response: Response;
         try {
-            response = await fetch("https://api.samp-servers.net/v2/servers");
+            response = await fetch("//api.samp-servers.net/v2/servers");
         } catch (error) {
             console.log("failed to GET server list:", error);
             return;
@@ -77,7 +77,7 @@ export default class ServerList extends React.Component<Props, State> {
 
         let response: Response;
         try {
-            response = await fetch("https://api.samp-servers.net/v2/server", {
+            response = await fetch("//api.samp-servers.net/v2/server", {
                 method: "POST",
                 headers: {
                     Accept: "text/plain",
@@ -147,7 +147,6 @@ export default class ServerList extends React.Component<Props, State> {
     }
 
     render() {
-        console.log("rendering with ", this.state);
         if (this.state.servers === null) {
             return (
                 <div>

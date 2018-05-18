@@ -21,7 +21,7 @@ export default class Stats extends Component<Ptops, State> {
     async getStatistics() {
         let response: Response;
         try {
-            response = await fetch("https://api.samp-servers.net/v2/stats");
+            response = await fetch("//api.samp-servers.net/v2/stats");
         } catch (error) {
             console.log("failed to GET stats:", error);
             return;
