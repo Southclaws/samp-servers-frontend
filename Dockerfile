@@ -12,6 +12,6 @@ RUN npm install && npm run build
 
 # nginx
 
-FROM m31271n/nginx-spa as run
+FROM southclaws/nginx-spa as run
 COPY --from=build /frontend/build /app
 EXPOSE 3000
