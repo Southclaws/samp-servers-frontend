@@ -1,4 +1,4 @@
-VERSION := $(shell cat VERSION)
+VERSION := $(shell git describe --always --tags --dirty)
 
 build:
 	docker build -t southclaws/samp-servers-frontend:$(VERSION) \
@@ -6,7 +6,9 @@ build:
 		.
 
 push:
-	docker push southclaws/samp-servers-frontend:$(VERSION) 
+	docker push southclaws/samp-servers-frontend:$(VERSION)
+	docker tag southclaws/samp-servers-frontend:$(VERSION) southclaws/samp-servers-frontend:latest
+	docker push southclaws/samp-servers-frontend:latest
 
 run:
 	-docker kill samp-servers-frontend
