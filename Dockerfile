@@ -8,7 +8,7 @@ RUN mkdir -p /frontend
 WORKDIR /frontend
 COPY . .
 
-RUN npm install && npm run build
+RUN yarn build
 
 # nginx
 
