@@ -46,7 +46,7 @@ export default class Controls extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <form>
+        <form className="table-control">
           <input
             type="text"
             name="search"
@@ -65,7 +65,7 @@ export default class Controls extends React.Component<Props, State> {
             Search
           </button>
         </form>
-        <form>
+        <form className="table-control">
           <input
             type="text"
             name="add"

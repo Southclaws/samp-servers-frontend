@@ -90,18 +90,20 @@ export default class Table extends React.Component<Props, State> {
     }
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Address</th>
-            <th>Hostname</th>
-            <th>Players</th>
-            <th>Gamemode</th>
-            <th>Language</th>
-          </tr>
-        </thead>
-        <tbody>{servers.map((server: ServerCore, index: number) => this.renderServerRow(server, index))}</tbody>
-      </table>
+      <div className="server-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Address</th>
+              <th>Hostname</th>
+              <th>Players</th>
+              <th>Gamemode</th>
+              <th>Language</th>
+            </tr>
+          </thead>
+          <tbody>{servers.map((server: ServerCore, index: number) => this.renderServerRow(server, index))}</tbody>
+        </table>
+      </div>
     );
   }
 }
