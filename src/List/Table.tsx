@@ -90,7 +90,7 @@ export default class Table extends React.Component<Props, State> {
     }
 
     return (
-      <div className="server-table">
+      <div className="list-table">
         <table>
           <thead>
             <tr>

@@ -34,7 +34,7 @@ export default class ServerList extends React.Component<Props, State> {
     console.log(this.state.query);
 
     return (
-      <div>
+      <div className="section-list">
         <Switch>
           <Route path="/server/:address">
             {(

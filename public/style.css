@@ -1,18 +1,65 @@
 /* SA:MP Servers Frontend Stylesheet */
-
 body {
   font-family: sans-serif;
 }
 
-h1 h2 h3 h4 {
-  font-family: serif;
+/* Main sections */
+
+@media all and (min-width: 480px) {
+  #container {
+    display: grid;
+    grid-template-columns: [left] 30% [mid] auto [right];
+    grid-template-rows: [top] 120px [top-end list] auto [list-end];
+  }
 }
 
-.table-control {
+@media max-width: 480px {
+  #container {
+    display: grid;
+    grid-template-columns: [left] auto [right];
+    grid-template-rows: [top] 120px [top-end list] auto [list-end];
+  }
+}
+
+.section-info {
+  padding: 5px;
+  grid-column: left / mid;
+  grid-row: top / top-end;
+}
+
+.section-stats {
+  grid-column-start: mid;
+  grid-column-end: right;
+  grid-row-start: top;
+  grid-row-end: top-end;
+  align-self: center;
+}
+
+.section-list {
+  grid-row-start: list;
+  grid-row-end: list-end;
+  grid-column-start: left;
+  grid-column-end: right;
+}
+
+/* Server List Controls */
+
+.list-controls {
+  margin: 10px;
+}
+
+.list-control {
   display: inline;
 }
 
-.table-control button {
+.list-control button {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+/* Server List Table */
+
+.list-table {
+  padding-left: 20px;
+  padding-right: 20px;
 }

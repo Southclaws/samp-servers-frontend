@@ -52,9 +52,9 @@ export default class Stats extends Component<Ptops, State> {
     }
 
     return (
-      <div>
+      <div className="section-stats">
         <p>
-          <span>{numPlayers}</span> players on <span>{numServers}</span> with an average of{" "}
+          <span>{numPlayers}</span> players on <span>{numServers}</span> servers with an average of{" "}
           <span>{(numPlayers / numServers).toFixed(1)}</span> players per server.
         </p>
       </div>

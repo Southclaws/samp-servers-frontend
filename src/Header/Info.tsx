@@ -7,7 +7,7 @@ interface InfoState {}
 export default class Info extends Component<InfoProps, InfoState> {
   render() {
     return (
-      <div>
+      <div className="section-info">
         <header>
           <h2>SA:MP Servers</h2>
           <h3>
