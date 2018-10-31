@@ -9,10 +9,12 @@ export default class Info extends Component<InfoProps, InfoState> {
     return (
       <div className="section-info">
         <header>
-          <h2>SA:MP Servers</h2>
-          <h3>
-            by <a href="https:///southcla.ws">Southclaws</a>
-          </h3>
+          <h2>
+            <a href="/">SA:MP Servers</a>
+          </h2>
+          <h4>
+            by <a href="https://southcla.ws">Southclaws</a>
+          </h4>
         </header>
       </div>
     );
