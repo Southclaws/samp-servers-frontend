@@ -13,7 +13,7 @@ body {
   }
 }
 
-@media max-width: 480px {
+@media (max-width: 480px) {
   #container {
     display: grid;
     grid-template-columns: [left] auto [right];
@@ -36,6 +36,13 @@ body {
 }
 
 .section-list {
+  grid-row-start: list;
+  grid-row-end: list-end;
+  grid-column-start: left;
+  grid-column-end: right;
+}
+
+.section-details {
   grid-row-start: list;
   grid-row-end: list-end;
   grid-column-start: left;

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Switch, Route, RouteComponentProps } from "react-router-dom";
 
 import { ServerCore } from "./Server";
 import Controls from "./Controls";
@@ -31,22 +30,8 @@ export default class ServerList extends React.Component<Props, State> {
       );
     }
 
-    console.log(this.state.query);
-
     return (
       <div className="section-list">
-        <Switch>
-          <Route path="/server/:address">
-            {(
-              thisProps: RouteComponentProps<{
-                address: string;
-              }>
-            ) => {
-              return <div />;
-            }}
-          </Route>
-        </Switch>
-
         <div>
           <Controls
             onSearch={q => {
