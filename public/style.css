@@ -75,8 +75,14 @@ body {
 /* Server List Table */
 
 .list-table {
+  align-self: center;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.list-table table {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .list-table .col-hostname {
