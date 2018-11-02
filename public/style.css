@@ -41,20 +41,18 @@ body {
 .section-stats {
   grid-row: info / info-end;
   grid-column: left / right;
-  align-self: center;
-  text-align: center;
+  justify-self: center;
 }
 
 .section-list {
   grid-row: list / list-end;
   grid-column: left / right;
+  justify-self: center;
 }
 
 .section-details {
-  grid-row-start: list;
-  grid-row-end: list-end;
-  grid-column-start: left;
-  grid-column-end: right;
+  grid-row: list / list-end;
+  grid-column: left / right;
 }
 
 /* Server List Controls */
