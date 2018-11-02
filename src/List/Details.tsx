@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RouteComponentProps } from "react-router";
+import { Link, RouteComponentProps } from "react-router";
 import { ServerFull } from "./Server";
 
 interface Props {}
@@ -71,7 +71,7 @@ export default class Details extends React.Component<RouteComponentProps<Props>,
   render() {
     return (
       <div className="section-details">
-        <a href="/">Back</a>
+        <Link to="/">Back</Link>
         {this.state.details === undefined ? (
           <div>
             <p>{"Loading " + (this.props.match.params as { address: string }).address}</p>
