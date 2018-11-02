@@ -21,7 +21,9 @@ export default class Table extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.getServers();
+    if (this.state.servers.length === 0) {
+      this.getServers();
+    }
   }
 
   async getServers() {
@@ -52,21 +54,17 @@ export default class Table extends React.Component<Props, State> {
   }
 
   renderServerRow(server: ServerCore, index: number): JSX.Element {
-    let passwordIcon = server.pa ? <span className="locked" /> : <span className="unlocked" />;
+    let passwordIcon = server.pa ? <span className="locked">🔐</span> : <span className="unlocked" />;
     return (
       <tr key={index}>
-        <td>
-          <Link to={"/server/" + server.ip}>
-            {passwordIcon}
-            {server.ip}
-          </Link>
+        <td className="col-hostname">
+          {passwordIcon} <Link to={"/server/" + server.ip}>{server.hn}</Link>
         </td>
-        <td>{server.hn}</td>
-        <td>
+        <td className="col-gamemode">{server.gm}</td>
+        <td className="col-players">
           {server.pc}/{server.pm}
         </td>
-        <td>{server.gm}</td>
-        <td>{server.la}</td>
+        <td className="col-language">{server.la}</td>
       </tr>
     );
   }
@@ -94,11 +92,10 @@ export default class Table extends React.Component<Props, State> {
         <table>
           <thead>
             <tr>
-              <th>Address</th>
-              <th>Hostname</th>
-              <th>Players</th>
-              <th>Gamemode</th>
-              <th>Language</th>
+              <th className="col-hostname">Hostname</th>
+              <th className="col-gamemode">Gamemode</th>
+              <th className="col-players">Players</th>
+              <th className="col-language">Language</th>
             </tr>
           </thead>
           <tbody>{servers.map((server: ServerCore, index: number) => this.renderServerRow(server, index))}</tbody>
