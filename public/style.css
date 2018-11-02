@@ -8,8 +8,8 @@ body {
 @media all and (min-width: 480px) {
   #container {
     display: grid;
-    grid-template-columns: 100px [left] [right] 100px;
-    grid-template-rows: [top] 120px [top-end list] auto [list-end];
+    grid-template-columns: 100px [left] auto [right] 100px;
+    grid-template-rows: [top] 120px [top-end info] 50px [info-end list] auto [list-end];
   }
 }
 
@@ -77,4 +77,20 @@ body {
 .list-table {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.list-table .col-hostname {
+  text-align: center;
+}
+
+.list-table .col-gamemode {
+  text-align: center;
+}
+
+.list-table .col-players {
+  text-align: center;
+}
+
+.list-table .col-language {
+  text-align: center;
 }
