@@ -1,8 +1,10 @@
 import * as React from "react";
+import Head from "next/head";
 
-import { ServerCore } from "./Server";
-import Controls from "./Controls";
-import Table from "./Table";
+import { ServerCore } from "../components/List/Server";
+import Controls from "../components/List/Controls";
+import Table from "../components/List/Table";
+import { NextContext } from "next";
 
 interface Props {}
 
@@ -32,6 +34,10 @@ export default class ServerList extends React.Component<Props, State> {
 
     return (
       <div className="section-list">
+        <p>hi</p>
+        {/* <Head>
+          <title>SA:MP Servers</title>
+        </Head>
         <div>
           <Controls
             onSearch={q => {
@@ -40,7 +46,7 @@ export default class ServerList extends React.Component<Props, State> {
             }}
           />
           <Table query={this.state.query} />
-        </div>
+        </div> */}
       </div>
     );
   }
