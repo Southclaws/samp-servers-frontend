@@ -16,8 +16,8 @@ export default class Controls extends React.Component<Props, State> {
     super(props);
     this.state = {
       query: "",
-      hideEmpty: false,
-      hideFull: false,
+      hideEmpty: true,
+      hideFull: true,
       addServerTarget: ""
     };
   }

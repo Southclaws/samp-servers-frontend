@@ -17,8 +17,8 @@ export default class ServerList extends React.Component<Props, State> {
 
     this.state = {
       query: "",
-      hideEmpty: false,
-      hideFull: false
+      hideEmpty: true,
+      hideFull: true
     };
   }
 
