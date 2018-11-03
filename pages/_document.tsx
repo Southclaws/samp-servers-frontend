@@ -6,6 +6,7 @@ import Stats from "../components/Header/Stats";
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: NextDocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
+    // let stats = Stats.getStatistics();
     return { ...initialProps };
   }
 
@@ -57,9 +58,9 @@ export default class MyDocument extends Document {
 
         <body>
           <div id="container">
-            <Main />
             <Info />
             <Stats />
+            <Main />
             <NextScript />
           </div>
         </body>

@@ -3,17 +3,10 @@ import { Component } from "react";
 
 import { Statistics } from "../Interfaces";
 
-interface Props {
-  data: Statistics;
-}
+interface Props {}
 interface State {}
 
 export default class Stats extends Component<Props, State> {
-  static async getInitialProps() {
-    console.log("get stats");
-    return await Stats.getStatistics();
-  }
-
   static async getStatistics(): Promise<Statistics> {
     let response = await fetch("//api.samp-servers.net/v2/stats");
     let data = (await response.json()) as Statistics;
@@ -24,10 +17,10 @@ export default class Stats extends Component<Props, State> {
   render() {
     let numServers = 0;
     let numPlayers = 0;
-    if (this.state != null) {
-      numServers = this.props.data.servers;
-      numPlayers = this.props.data.players;
-    }
+    // if (this.state != null) {
+    //   numServers = this.props.data.servers;
+    //   numPlayers = this.props.data.players;
+    // }
 
     return (
       <div className="section-stats">

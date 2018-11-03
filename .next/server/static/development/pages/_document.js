@@ -105,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Info; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-var _jsxFileName = "/Users/barnabykeene/Projects/samp-servers-frontend/components/Header/Info.tsx";
+var _jsxFileName = "/Users/southclaws/Projects/samp-servers-frontend/components/Header/Info.tsx";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -207,7 +207,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 
-var _jsxFileName = "/Users/barnabykeene/Projects/samp-servers-frontend/components/Header/Stats.tsx";
+var _jsxFileName = "/Users/southclaws/Projects/samp-servers-frontend/components/Header/Stats.tsx";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -249,104 +249,73 @@ function (_Component) {
     key: "render",
     value: function render() {
       var numServers = 0;
-      var numPlayers = 0;
-
-      if (this.state != null) {
-        numServers = this.props.data.servers;
-        numPlayers = this.props.data.players;
-      }
+      var numPlayers = 0; // if (this.state != null) {
+      //   numServers = this.props.data.servers;
+      //   numPlayers = this.props.data.players;
+      // }
 
       return react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", {
         className: "section-stats",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 33
+          lineNumber: 26
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 34
+          lineNumber: 27
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("span", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 35
+          lineNumber: 28
         },
         __self: this
       }, numPlayers), " players on ", react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("span", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 35
+          lineNumber: 28
         },
         __self: this
       }, numServers), " servers with an average of", " ", react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("span", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 36
+          lineNumber: 29
         },
         __self: this
       }, (numPlayers / numServers).toFixed(1)), " players per server."));
     }
   }], [{
-    key: "getInitialProps",
+    key: "getStatistics",
     value: function () {
-      var _getInitialProps = _asyncToGenerator(
+      var _getStatistics = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response, data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log("get stats");
-                _context.next = 3;
-                return Stats.getStatistics();
+                _context.next = 2;
+                return fetch("//api.samp-servers.net/v2/stats");
 
-              case 3:
-                return _context.abrupt("return", _context.sent);
+              case 2:
+                response = _context.sent;
+                _context.next = 5;
+                return response.json();
 
-              case 4:
+              case 5:
+                data = _context.sent;
+                return _context.abrupt("return", data);
+
+              case 7:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee, this);
-      }));
-
-      return function getInitialProps() {
-        return _getInitialProps.apply(this, arguments);
-      };
-    }()
-  }, {
-    key: "getStatistics",
-    value: function () {
-      var _getStatistics = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var response, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return fetch("//api.samp-servers.net/v2/stats");
-
-              case 2:
-                response = _context2.sent;
-                _context2.next = 5;
-                return response.json();
-
-              case 5:
-                data = _context2.sent;
-                return _context2.abrupt("return", data);
-
-              case 7:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
       }));
 
       return function getStatistics() {
@@ -381,7 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Header_Info__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Header/Info */ "./components/Header/Info.tsx");
 /* harmony import */ var _components_Header_Stats__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Header/Stats */ "./components/Header/Stats.tsx");
 
-var _jsxFileName = "/Users/barnabykeene/Projects/samp-servers-frontend/pages/_document.tsx";
+var _jsxFileName = "/Users/southclaws/Projects/samp-servers-frontend/pages/_document.tsx";
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -447,13 +416,13 @@ function (_Document) {
         lang: "en",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 32
+          lineNumber: 33
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_2__["Head"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 33
+          lineNumber: 34
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("meta", {
@@ -461,7 +430,7 @@ function (_Document) {
         content: "width=device-width, initial-scale=1, shrink-to-fit=no",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 34
+          lineNumber: 35
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("meta", {
@@ -469,7 +438,7 @@ function (_Document) {
         content: "#FF3200",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 35
+          lineNumber: 36
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -478,7 +447,7 @@ function (_Document) {
         href: "/apple-icon-57x57.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 36
+          lineNumber: 37
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -487,7 +456,7 @@ function (_Document) {
         href: "/apple-icon-60x60.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 37
+          lineNumber: 38
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -496,7 +465,7 @@ function (_Document) {
         href: "/apple-icon-72x72.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 38
+          lineNumber: 39
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -505,7 +474,7 @@ function (_Document) {
         href: "/apple-icon-76x76.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 39
+          lineNumber: 40
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -514,7 +483,7 @@ function (_Document) {
         href: "/apple-icon-114x114.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 40
+          lineNumber: 41
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -523,7 +492,7 @@ function (_Document) {
         href: "/apple-icon-120x120.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 41
+          lineNumber: 42
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -532,7 +501,7 @@ function (_Document) {
         href: "/apple-icon-144x144.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 42
+          lineNumber: 43
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -541,7 +510,7 @@ function (_Document) {
         href: "/apple-icon-152x152.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 43
+          lineNumber: 44
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -550,7 +519,7 @@ function (_Document) {
         href: "/apple-icon-180x180.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 44
+          lineNumber: 45
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -560,7 +529,7 @@ function (_Document) {
         href: "/android-icon-192x192.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 45
+          lineNumber: 46
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -570,7 +539,7 @@ function (_Document) {
         href: "/favicon-32x32.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 46
+          lineNumber: 47
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -580,7 +549,7 @@ function (_Document) {
         href: "/favicon-96x96.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 47
+          lineNumber: 48
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -590,7 +559,7 @@ function (_Document) {
         href: "/favicon-16x16.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 48
+          lineNumber: 49
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -598,7 +567,7 @@ function (_Document) {
         href: "/manifest.json",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 49
+          lineNumber: 50
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("link", {
@@ -606,7 +575,7 @@ function (_Document) {
         href: "/style.css",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 50
+          lineNumber: 51
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("meta", {
@@ -614,7 +583,7 @@ function (_Document) {
         content: "#ffffff",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 51
+          lineNumber: 52
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("meta", {
@@ -622,7 +591,7 @@ function (_Document) {
         content: "/ms-icon-144x144.png",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 52
+          lineNumber: 53
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("meta", {
@@ -630,36 +599,30 @@ function (_Document) {
         content: "#ffffff",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 53
+          lineNumber: 54
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("script", {
         type: "application/ld+json",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 55
+          lineNumber: 56
         },
         __self: this
       }, jsonld)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("body", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 58
+          lineNumber: 59
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "container",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 59
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_2__["Main"], {
-        __source: {
-          fileName: _jsxFileName,
           lineNumber: 60
         },
         __self: this
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_Header_Info__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_Header_Info__WEBPACK_IMPORTED_MODULE_3__["default"], {
         __source: {
           fileName: _jsxFileName,
           lineNumber: 61
@@ -671,10 +634,16 @@ function (_Document) {
           lineNumber: 62
         },
         __self: this
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_2__["NextScript"], {
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_2__["Main"], {
         __source: {
           fileName: _jsxFileName,
           lineNumber: 63
+        },
+        __self: this
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_2__["NextScript"], {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 64
         },
         __self: this
       }))));

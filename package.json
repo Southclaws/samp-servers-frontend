@@ -13,25 +13,23 @@
   },
   "dependencies": {
     "@zeit/next-typescript": "^1.1.1",
-    "next": "^7.0.2",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
     "copy-concurrently": "^1.0.5",
     "fuse.js": "^3.0.5",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^7.0.2",
+    "react": "^16.6.0",
     "react-device": "^0.7.0",
-    "react-router-dom": "^4.2.2",
+    "react-dom": "^16.6.0",
     "react-scripts-ts": "2.12.0",
     "semantic-ui-react": "^0.77.2"
   },
   "devDependencies": {
-    "@types/next": "^7.0.1",
-    "@types/react": "^16.4.16",
-    "@types/react-dom": "16.0.8",
-    "typescript": "3.1.1",
     "@types/fuse": "^2.5.1",
     "@types/jest": "^22.0.1",
+    "@types/next": "^7.0.1",
     "@types/node": "^9.3.0",
-    "@types/react-router": "^4.0.15",
-    "@types/react-router-dom": "^4.2.3"
+    "@types/react": "^16.4.16",
+    "@types/react-dom": "16.0.8",
+    "typescript": "3.1.1"
   }
 }

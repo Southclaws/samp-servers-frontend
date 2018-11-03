@@ -1,64 +1,26 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-import * as Fuse from "fuse.js";
+import Fuse from "fuse.js";
+import Link from "next/link";
 
 import { ServerCore } from "./Server";
 
 interface Props {
+  servers: ServerCore[];
   query: string;
 }
 
-interface State {
-  servers: ServerCore[];
-}
+interface State {}
 
 export default class Table extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      servers: []
-    };
-  }
-
-  componentDidMount() {
-    if (this.state.servers.length === 0) {
-      this.getServers();
-    }
-  }
-
-  async getServers() {
-    let response: Response;
-    try {
-      response = await fetch("//api.samp-servers.net/v2/servers");
-    } catch (error) {
-      console.log("failed to GET server list:", error);
-      return;
-    }
-
-    let data: Array<Object>;
-    try {
-      data = await response.json();
-    } catch (error) {
-      console.log("failed to parse response as JSON:", error);
-      return;
-    }
-
-    let servers: ServerCore[] = [];
-    data.forEach((server: ServerCore) => {
-      servers.push(server);
-    });
-
-    this.setState({
-      servers: servers
-    });
-  }
-
   renderServerRow(server: ServerCore, index: number): JSX.Element {
     let passwordIcon = server.pa ? <span className="locked">🔐</span> : <span className="unlocked" />;
     return (
       <tr key={index}>
         <td className="col-hostname">
-          {passwordIcon} <Link to={"/server/" + server.ip}>{server.hn}</Link>
+          {passwordIcon}{" "}
+          <Link href={"/server/" + server.ip}>
+            <span>{server.hn}</span>
+          </Link>
         </td>
         <td className="col-gamemode">{server.gm}</td>
         <td className="col-players">
@@ -73,7 +35,7 @@ export default class Table extends React.Component<Props, State> {
     let servers: Array<ServerCore>;
 
     if (this.props.query !== "") {
-      let fuse = new Fuse(this.state.servers, {
+      let fuse = new Fuse(this.props.servers, {
         shouldSort: true,
         threshold: 0.4,
         location: 0,
@@ -82,9 +44,9 @@ export default class Table extends React.Component<Props, State> {
         minMatchCharLength: 2,
         keys: ["ip", "hn", "gm", "la"]
       });
-      servers = fuse.search<ServerCore>(this.props.query);
+      servers = fuse.search(this.props.query);
     } else {
-      servers = this.state.servers;
+      servers = this.props.servers;
     }
 
     return (

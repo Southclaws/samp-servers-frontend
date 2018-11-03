@@ -1,15 +1,18 @@
 import * as React from "react";
 import Head from "next/head";
+import { NextContext } from "next";
+import "isomorphic-unfetch";
 
 import { ServerCore } from "../components/List/Server";
+import { getServers } from "../components/List/Utility";
 import Controls from "../components/List/Controls";
 import Table from "../components/List/Table";
-import { NextContext } from "next";
 
-interface Props {}
+interface Props {
+  servers: ServerCore[];
+}
 
 interface State {
-  servers: ServerCore[];
   query: string;
 }
 
@@ -18,13 +21,23 @@ export default class ServerList extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      servers: [],
       query: ""
     };
   }
 
+  static async getInitialProps(ctx: NextContext): Promise<Props> {
+    console.log("server?", ctx.req !== undefined);
+    let servers = await getServers();
+    if (servers === undefined) {
+      return Promise.reject("failed to get servers");
+    }
+    return {
+      servers: servers
+    };
+  }
+
   render() {
-    if (this.state.servers === null) {
+    if (this.props.servers === null) {
       return (
         <div>
           <p>The samp-servers.net API is currently unavailable.</p>
@@ -35,7 +48,7 @@ export default class ServerList extends React.Component<Props, State> {
     return (
       <div className="section-list">
         <p>hi</p>
-        {/* <Head>
+        <Head>
           <title>SA:MP Servers</title>
         </Head>
         <div>
@@ -45,8 +58,8 @@ export default class ServerList extends React.Component<Props, State> {
               this.setState({ query: q });
             }}
           />
-          <Table query={this.state.query} />
-        </div> */}
+          <Table servers={this.props.servers} query={this.state.query} />
+        </div>
       </div>
     );
   }
