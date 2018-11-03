@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import { ServerCore } from "./Server";
 import Controls from "./Controls";
 import Table from "./Table";
 
 interface Props {}
 
 interface State {
-  servers: ServerCore[];
   query: string;
+  hideEmpty: boolean;
+  hideFull: boolean;
 }
 
 export default class ServerList extends React.Component<Props, State> {
@@ -16,31 +16,22 @@ export default class ServerList extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      servers: [],
-      query: ""
+      query: "",
+      hideEmpty: false,
+      hideFull: false
     };
   }
 
   render() {
-    if (this.state.servers === null) {
-      return (
-        <div>
-          <p>The samp-servers.net API is currently unavailable.</p>
-        </div>
-      );
-    }
-
     return (
       <div className="section-list">
-        <div>
-          <Controls
-            onSearch={q => {
-              console.log(q);
-              this.setState({ query: q });
-            }}
-          />
-          <Table query={this.state.query} />
-        </div>
+        <Controls
+          onSearch={(query: string, hideEmpty: boolean, hideFull: boolean) => {
+            console.log({ query: query, hideEmpty: hideEmpty, hideFull: hideFull });
+            this.setState({ query: query, hideEmpty: hideEmpty, hideFull: hideFull });
+          }}
+        />
+        <Table query={this.state.query} hideEmpty={this.state.hideEmpty} hideFull={this.state.hideFull} />
       </div>
     );
   }

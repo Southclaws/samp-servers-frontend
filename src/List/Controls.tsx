@@ -1,11 +1,13 @@
 import * as React from "react";
 
 interface Props {
-  onSearch: Function;
+  onSearch: (query: string, hideEmpty: boolean, hideFull: boolean) => void;
 }
 
 interface State {
   query: string;
+  hideEmpty: boolean;
+  hideFull: boolean;
   addServerTarget: string;
 }
 
@@ -14,8 +16,14 @@ export default class Controls extends React.Component<Props, State> {
     super(props);
     this.state = {
       query: "",
+      hideEmpty: false,
+      hideFull: false,
       addServerTarget: ""
     };
+  }
+
+  notifyParent() {
+    this.props.onSearch(this.state.query, this.state.hideEmpty, this.state.hideFull);
   }
 
   async doAddServer(address: string) {
@@ -48,6 +56,30 @@ export default class Controls extends React.Component<Props, State> {
       <div className="list-controls">
         <form className="list-control">
           <input
+            type="checkbox"
+            name="hideEmpty"
+            onChange={e => {
+              let value = (e as React.ChangeEvent<HTMLInputElement>).target.checked;
+              this.setState({
+                hideEmpty: value
+              });
+              this.props.onSearch(this.state.query, value, this.state.hideFull);
+            }}
+          />
+          <label htmlFor="hideEmpty">Hide Empty Servers</label>
+          <input
+            type="checkbox"
+            name="hideFull"
+            onChange={e => {
+              let value = (e as React.ChangeEvent<HTMLInputElement>).target.checked;
+              this.setState({
+                hideFull: value
+              });
+              this.props.onSearch(this.state.query, this.state.hideEmpty, value);
+            }}
+          />
+          <label htmlFor="hideFull">Hide Full Servers</label>
+          <input
             type="text"
             name="search"
             placeholder="search"
@@ -58,7 +90,7 @@ export default class Controls extends React.Component<Props, State> {
           <button
             onClick={e => {
               e.preventDefault();
-              this.props.onSearch(this.state.query);
+              this.notifyParent();
               return false;
             }}
           >

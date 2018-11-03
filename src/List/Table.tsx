@@ -6,6 +6,8 @@ import { ServerCore } from "./Server";
 
 interface Props {
   query: string;
+  hideEmpty?: boolean;
+  hideFull?: boolean;
 }
 
 interface State {
@@ -86,6 +88,14 @@ export default class Table extends React.Component<Props, State> {
     } else {
       servers = this.state.servers;
     }
+
+    servers = servers
+      .filter((value: ServerCore, index: number, array: ServerCore[]) => {
+        return this.props.hideEmpty ? value.pc > 0 : true;
+      })
+      .filter((value: ServerCore, index: number, array: ServerCore[]) => {
+        return this.props.hideFull ? value.pc < value.pm : true;
+      });
 
     return (
       <div className="list-table">

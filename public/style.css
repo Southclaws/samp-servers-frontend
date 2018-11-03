@@ -58,11 +58,18 @@ body {
 /* Server List Controls */
 
 .list-controls {
-  margin: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .list-control {
   display: inline;
+}
+
+.list-control label {
+  font-size: 10pt;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .list-control button {
@@ -71,12 +78,6 @@ body {
 }
 
 /* Server List Table */
-
-.list-table {
-  align-self: center;
-  padding-left: 20px;
-  padding-right: 20px;
-}
 
 .list-table table {
   margin-left: auto;
