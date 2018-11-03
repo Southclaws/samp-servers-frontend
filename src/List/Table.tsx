@@ -82,7 +82,7 @@ export default class Table extends React.Component<Props, State> {
         minMatchCharLength: 2,
         keys: ["ip", "hn", "gm", "la"]
       });
-      servers = fuse.search<ServerCore>(this.props.query);
+      servers = fuse.search(this.props.query);
     } else {
       servers = this.state.servers;
     }

@@ -48,7 +48,7 @@ export default class Details extends React.Component<RouteComponentProps<Props>,
 
   serverRules(): JSX.Element[] {
     let details = this.state.details;
-    if (details === undefined) {
+    if (details === undefined || details.ru === undefined) {
       return [<div key={0} />];
     }
 
