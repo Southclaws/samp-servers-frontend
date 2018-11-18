@@ -17,13 +17,3 @@ run:
 		--name samp-servers-frontend \
 		-p 3000:80 \
 		southclaws/samp-servers-frontend:$(VERSION)
-
-run-prod:
-	-docker kill samp-servers-frontend
-	-docker rm samp-servers-frontend
-	docker run \
-		--name samp-servers-frontend \
-		--restart on-failure \
-		-p 7789:80 \
-		-d \
-		southclaws/samp-servers-frontend:$(VERSION)
