@@ -1,19 +1,15 @@
-VERSION := $(shell git describe --always --tags --dirty)
+VERSION := $(shell git describe --tags --dirty --always)
+SERVICE := $(shell basename $(shell pwd))
+OWNER := southclaws
+
+# -
+# Docker
+# -
 
 build:
-	docker build -t southclaws/samp-servers-frontend:$(VERSION) \
-		--build-arg app_env=production \
-		.
+	docker build --no-cache -t $(OWNER)/$(SERVICE):$(VERSION) .
 
 push:
-	docker push southclaws/samp-servers-frontend:$(VERSION)
-	docker tag southclaws/samp-servers-frontend:$(VERSION) southclaws/samp-servers-frontend:latest
-	docker push southclaws/samp-servers-frontend:latest
-
-run:
-	-docker kill samp-servers-frontend
-	-docker rm samp-servers-frontend
-	docker run \
-		--name samp-servers-frontend \
-		-p 3000:80 \
-		southclaws/samp-servers-frontend:$(VERSION)
+	docker push $(OWNER)/$(SERVICE):$(VERSION)
+	docker tag $(OWNER)/$(SERVICE):$(VERSION) $(OWNER)/$(SERVICE):latest
+	docker push $(OWNER)/$(SERVICE):latest
