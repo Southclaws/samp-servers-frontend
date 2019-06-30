@@ -16,7 +16,7 @@ export default ({ servers }) => {
                 <span className="db black-30 f6 measure truncate">{server.gm}</span>
               </div>
 
-              <div className="pr2 tr dn di-ns">
+              <div className="pr2 tr dn di-ns flex-shrink-0">
                 <div className="black-70">
                   {server.pa ? <span>🔐</span> : null} <span>{server.ip}</span>
                 </div>

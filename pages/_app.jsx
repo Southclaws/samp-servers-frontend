@@ -29,6 +29,7 @@ class Layout extends React.Component {
         <main className="debug-grid avenir cf ph7-l ph5-ns ph3">
           <Info className="" />
           <Stats stats={stats} />
+          <hr className="black-20 mh3" />
           {children}
         </main>
       </div>
