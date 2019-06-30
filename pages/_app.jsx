@@ -12,7 +12,6 @@ import { getStatistics } from "../src/utils/utils";
 class Layout extends React.Component {
   render() {
     const { children, stats } = this.props;
-    console.log("App render", this.props);
     return (
       <div className="layout">
         <Head title="Home">
@@ -31,6 +30,11 @@ class Layout extends React.Component {
           <Stats stats={stats} />
           <hr className="black-20 mh3" />
           {children}
+          <footer className="tc pv4 f7 black-30">
+            <a className="link black-50 underline hover-light-red" href="https://southcla.ws">
+              Made with ❤️ by Southclaws
+            </a>
+          </footer>
         </main>
       </div>
     );
