@@ -1,17 +1,17 @@
 import * as React from "react";
 
-interface Props {
-  onSearch: (query: string, hideEmpty: boolean, hideFull: boolean) => void;
-}
+// interface Props {
+//   onSearch: (query: string, hideEmpty: boolean, hideFull: boolean) => void;
+// }
 
-interface State {
-  query: string;
-  hideEmpty: boolean;
-  hideFull: boolean;
-  addServerTarget: string;
-}
+// interface State {
+//   query: string;
+//   hideEmpty: boolean;
+//   hideFull: boolean;
+//   addServerTarget: string;
+// }
 
-export default class Controls extends React.Component<Props, State> {
+export default class Controls extends React.Component {
   constructor(props: Props) {
     super(props);
     this.state = {
