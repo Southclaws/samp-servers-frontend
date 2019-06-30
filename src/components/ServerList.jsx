@@ -11,12 +11,12 @@ export default ({ servers }) => {
               key={server.ip}
               className="flex hover-bg-light-red items-center justify-between lh-copy pa2 ph0-l bb b--black-10"
             >
-              <div className="pl2">
-                <span className="db black-70 measure">{server.hn}</span>
-                <span className="db black-30 f6 measure">{server.gm}</span>
+              <div className="pl2 overflow-hidden">
+                <span className="db black-70 measure truncate">{server.hn}</span>
+                <span className="db black-30 f6 measure truncate">{server.gm}</span>
               </div>
 
-              <div className="pr2 tr">
+              <div className="pr2 tr dn di-ns">
                 <div className="black-70">
                   {server.pa ? <span>🔐</span> : null} <span>{server.ip}</span>
                 </div>

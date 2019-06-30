@@ -4,7 +4,7 @@ import Link from "next/link";
 export default () => (
   <div className="f5 lh-title">
     <header>
-      <h1 className="mb1">
+      <h1 className="mv3">
         <Link href="/">
           <a className="link black hover-bg-light-red">SA:MP Servers</a>
         </Link>
