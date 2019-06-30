@@ -1,11 +1,13 @@
 import React from "react";
+import { getServer } from "../src/utils/utils";
 
-const Page = () => {
-  return null;
+const Page = ({ server }) => {
+  return <div>{JSON.stringify(server)}</div>;
 };
 
-Page.getInitialProps = () => {
-  return {};
+Page.getInitialProps = async ({ query: { ip } }) => {
+  console.log("initial", ip);
+  return { server: await getServer(ip) };
 };
 
 export default Page;

@@ -10,9 +10,9 @@ app
   .then(() => {
     const server = express();
 
-    server.get("/:id", (req, res) => {
+    server.get("/server/:ip", (req, res) => {
       return app.render(req, res, "/server", {
-        id: req.params.id
+        ip: req.params.ip
       });
     });
 

@@ -5,7 +5,7 @@ export default ({ servers }) => {
   return (
     <ul className="list pl0 mt0 center">
       {servers.map(server => (
-        <Link href={"/server/" + server.ip} as={`/server?ip=${server.ip}`}>
+        <Link as={"/server/" + server.ip} href={`/server?ip=${server.ip}`}>
           <a className="link black">
             <li
               key={server.ip}

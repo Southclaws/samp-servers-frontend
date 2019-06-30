@@ -17,3 +17,8 @@ export const getServers = async () => {
   const response = await fetch("https://api.samp-servers.net/v2/servers");
   return await response.json();
 };
+
+export const getServer = async address => {
+  const response = await fetch(`https://api.samp-servers.net/v2/server/${address}`);
+  return await response.json();
+};
