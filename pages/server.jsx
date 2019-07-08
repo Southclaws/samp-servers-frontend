@@ -1,4 +1,6 @@
 import React from "react";
+import NextSeo from "next-seo";
+
 import { getServer } from "../src/utils/utils";
 
 const Item = ({ k, v }) => {
@@ -61,6 +63,14 @@ const Rules = ({ server }) => {
 const Page = ({ server }) => {
   return (
     <article>
+      <NextSeo
+        config={{
+          title: `${server.core.hn} | SA:MP Servers`,
+          canonical: `https://www.samp-servers.net/server/${server.core.ip}`,
+          description: `View information for ${server.core.hn} (${server.core.gm}) on the SA:MP Servers Index.`
+        }}
+      />
+
       <hgroup>
         <h2 className="pv0 mb0">{server.core.hn}</h2>
         <div className="black-30 pv1 mt0 flex justify-between">
