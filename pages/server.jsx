@@ -65,9 +65,11 @@ const Page = ({ server }) => {
     <article>
       <NextSeo
         config={{
-          title: `${server.core.hn} | SA:MP Servers`,
+          title: `${server.core.hn} | SA-MP Servers Index`,
           canonical: `https://www.samp-servers.net/server/${server.core.ip}`,
-          description: `View information for ${server.core.hn} (${server.core.gm}) on the SA:MP Servers Index.`
+          description: `${server.core.pc}/${server.core.pm} players currently online at ${server.core.hn} (${
+            server.core.gm
+          }). View more information on SA-MP Servers Index.`
         }}
       />
 

@@ -19,9 +19,9 @@ class Layout extends React.Component {
         </Head>
         <NextSeo
           config={{
-            title: "SA:MP Servers",
+            title: "SA-MP Servers Index",
             canonical: "https://www.samp-servers.net/",
-            description: "Live indexing and data for all SA:MP servers."
+            description: "Live indexing and data for all SA-MP servers."
           }}
         />
 
