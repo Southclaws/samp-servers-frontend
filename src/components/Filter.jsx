@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 const formItemStyle = "pa1 ph2 flex flex-column flex-row-ns tl-ns tc";
 
 export default ({ query }) => {
+  const [showFull, setShowFull] = useState(query.showFull);
+  const [showEmpty, setShowEmpty] = useState(query.showEmpty);
+  const [reverse, setReverse] = useState(query.reverse);
+
   return (
     <div>
       <form action="" className="form" className="flex flex-wrap flex-auto-ns items-center justify-center pa2 f7">
@@ -10,21 +14,41 @@ export default ({ query }) => {
           <label className="pr2" htmlFor="showFull">
             Full Servers:
           </label>
-          <input type="checkbox" name="showFull" id="showFull" checked={query.showFull} />
+          <input
+            type="checkbox"
+            name="showFull"
+            id="showFull"
+            checked={showFull}
+            onChange={e => {
+              setShowFull(e.target.checked);
+            }}
+          />
         </span>
 
         <span className={formItemStyle}>
           <label className="pr2" htmlFor="showEmpty">
             Empty Servers:
           </label>
-          <input type="checkbox" name="showEmpty" id="showEmpty" checked={query.showEmpty} />
+          <input
+            type="checkbox"
+            name="showEmpty"
+            id="showEmpty"
+            checked={showEmpty}
+            onChange={e => setShowEmpty(e.target.checked)}
+          />
         </span>
 
         <span className={formItemStyle}>
           <label className="pr2" htmlFor="reverse">
             Reverse:
           </label>
-          <input type="checkbox" name="reverse" id="reverse" checked={query.reverse} />
+          <input
+            type="checkbox"
+            name="reverse"
+            id="reverse"
+            checked={reverse}
+            onChange={e => setReverse(e.target.checked)}
+          />
         </span>
 
         {/* Note: The API currently does not provide any more sort orders. */}
