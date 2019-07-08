@@ -21,7 +21,7 @@ class Layout extends React.Component {
           config={{
             title: "SA:MP Servers",
             canonical: "https://www.samp-servers.net/",
-            description: "Exchange price, Sell price and Buy price tracking for all CeX products."
+            description: "Live indexing and data for all SA:MP servers."
           }}
         />
 
