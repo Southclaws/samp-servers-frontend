@@ -8,8 +8,8 @@ export default ({ query }) => {
   const [reverse, setReverse] = useState(query.reverse);
 
   return (
-    <div>
-      <form action="" className="form" className="flex flex-wrap flex-auto-ns items-center justify-center pa2 f7">
+    <>
+      <form action="" className="form" className="flex flex-wrap items-center justify-center pa2 f7">
         <span className={formItemStyle}>
           <label className="pr2" htmlFor="showFull">
             Full Servers:
@@ -85,6 +85,6 @@ export default ({ query }) => {
           </button>
         </span>
       </form>
-    </div>
+    </>
   );
 };

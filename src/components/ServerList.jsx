@@ -2,11 +2,15 @@ import React from "react";
 import Link from "next/link";
 
 import Filter from "./Filter";
+import Add from "./Add";
 
 export default props => {
   return (
     <>
-      <Filter {...props} />
+      <div className="flex flex-column flex-row-l justify-center">
+        <Filter {...props} />
+        <Add {...props} />
+      </div>
       <ul className="list pl0 mt0 center">
         {props.servers.map(server => (
           <Link key={server.ip} as={"/server/" + server.ip} href={`/server?ip=${server.ip}`}>
