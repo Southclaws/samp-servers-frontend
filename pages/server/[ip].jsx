@@ -1,7 +1,7 @@
 import React from "react";
-import NextSeo from "next-seo";
+import { NextSeo } from "next-seo";
 
-import { getServer } from "../src/utils/utils";
+import { getServer } from "../../src/utils/utils";
 
 const Item = ({ k, v }) => {
   return (
@@ -67,9 +67,7 @@ const Page = ({ server }) => {
         config={{
           title: `${server.core.hn} | SA-MP Servers Index`,
           canonical: `https://www.samp-servers.net/server/${server.core.ip}`,
-          description: `${server.core.pc}/${server.core.pm} players currently online at ${server.core.hn} (${
-            server.core.gm
-          }). View more information on SA-MP Servers Index.`
+          description: `${server.core.pc}/${server.core.pm} players currently online at ${server.core.hn} (${server.core.gm}). View more information on SA-MP Servers Index.`
         }}
       />
 

@@ -1,13 +1,13 @@
-import React from "react";
-import App, { Container } from "next/app";
-import Head from "next/head";
-import Router from "next/router";
-import withGA from "next-ga";
-import NextSeo from "next-seo";
+import React from 'react';
+import App from 'next/app';
+import Head from 'next/head';
+import Router from 'next/router';
+import withGA from 'next-ga';
+import { NextSeo } from 'next-seo';
 
-import Info from "../src/components/Info";
-import Stats from "../src/containers/Stats";
-import { getStatistics } from "../src/utils/utils";
+import Info from '../src/components/Info';
+import Stats from '../src/containers/Stats';
+import { getStatistics } from '../src/utils/utils';
 
 class Layout extends React.Component {
   render() {
@@ -19,9 +19,9 @@ class Layout extends React.Component {
         </Head>
         <NextSeo
           config={{
-            title: "SA-MP Servers Index",
-            canonical: "https://www.samp-servers.net/",
-            description: "Live indexing and data for all SA-MP servers."
+            title: 'SA-MP Servers Index',
+            canonical: 'https://www.samp-servers.net/',
+            description: 'Live indexing and data for all SA-MP servers.'
           }}
         />
 
@@ -54,13 +54,11 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <Container>
-        <Layout stats={pageProps.stats}>
-          <Component {...pageProps} />
-        </Layout>
-      </Container>
+      <Layout stats={pageProps.stats}>
+        <Component {...pageProps} />
+      </Layout>
     );
   }
 }
 
-export default withGA("", Router)(MyApp);
+export default withGA('', Router)(MyApp);
